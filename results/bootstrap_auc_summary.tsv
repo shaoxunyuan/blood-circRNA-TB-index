@@ -1,0 +1,8 @@
+metric	value
+median_in_bag_AUROC	0.952
+median_OOB_AUROC	0.953
+median_panel_size	3
+panel_size_IQR_low	2
+panel_size_IQR_high	3
+panel_size_le3_pct	91.4
+panel_size_3_pct	51.8

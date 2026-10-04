@@ -1,0 +1,10 @@
+parameter	value
+common_feature_count	2754
+candidate_gene_count	18
+locked_panel_size	3
+bootstrap_iterations	500
+bootstrap_seed	2026
+youden_threshold	1.407
+high_sensitivity_threshold	0.261
+DE_abs_log2FC_cutoff	0.5
+DE_nominal_P_cutoff	0.05

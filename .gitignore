@@ -1,0 +1,42 @@
+# R / RStudio
+.Rhistory
+.RData
+.Ruserdata
+.Rproj.user
+.Renviron
+
+# Editor / OS
+.DS_Store
+Thumbs.db
+*.swp
+*~
+~$*
+
+# Temporary and backup files
+*.tmp
+*.bak
+*.log
+*.out
+cache/
+temp/
+.ipynb_checkpoints/
+
+# Runtime output (keep the placeholder)
+output/**
+!output/.gitkeep
+
+# Never commit raw sequencing or bulk data
+raw/
+fastq/
+bam/
+cram/
+sam/
+*.fastq
+*.fastq.gz
+*.fq
+*.fq.gz
+*.bam
+*.cram
+*.sam
+data/**/*.rds
+data/**/*.RData

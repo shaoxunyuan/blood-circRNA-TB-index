@@ -1,0 +1,4 @@
+Gene	IDC_only	ITC_only	PVC_only	IDC_ITC_only	IDC_PVC_only	ITC_PVC_only	All_three
+SOD2	2	0	4	0	0	1	1
+GOLPH3	1	0	0	1	0	0	1
+PCNX2	0	1	6	3	4	0	12

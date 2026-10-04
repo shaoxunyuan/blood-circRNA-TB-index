@@ -1,0 +1,5 @@
+# TB-index = SOD2_QN - GOLPH3_QN - PCNX2_QN
+Gene	Direction	Weight
+SOD2	Up	1
+GOLPH3	Down	-1
+PCNX2	Down	-1

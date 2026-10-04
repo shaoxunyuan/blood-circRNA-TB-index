@@ -1,0 +1,11 @@
+item	expected	observed	pass
+common feature space	2754	2754	TRUE
+candidate genes	18	18	TRUE
+locked panel size	3	3	TRUE
+scored libraries	225	225	TRUE
+diagnostic comparisons	11	11	TRUE
+DeLong comparisons	16	16	TRUE
+BSJ summary rows	9	9	TRUE
+BSJ all-three (SOD2/GOLPH3/PCNX2)	1/1/12	1/1/12	TRUE
+Youden threshold	1.407	1.407	TRUE
+high-sensitivity	0.261	0.261	TRUE

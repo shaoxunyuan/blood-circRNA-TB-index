@@ -1,0 +1,12 @@
+Package	Version	Role
+R	4.4.3	Analysis environment
+pROC	1.19.0.1	ROC analysis, AUROC and DeLong confidence intervals (roc, auc, ci.auc, coords, roc.test)
+limma	3.54.2	Differential-expression analysis (lmFit, eBayes, topTable)
+data.table	1.17.8	Data manipulation
+ggplot2	4.0.2	Figure generation
+matrixStats	1.5.0	Matrix summaries
+openxlsx	4.2.8.1	Workbook output
+readxl	1.4.5	Workbook input
+plotROC	2.3.3	ROC curve plotting
+survival	3.8.6	Survival utilities
+logistf	1.26.1	Firth bias-reduced logistic regression (installed; the manuscript describes a direct implementation without an external package)

@@ -1,0 +1,57 @@
+cff-version: 1.2.0
+message: "If you use this analysis code, please cite the accompanying manuscript and this repository."
+title: "blood-circRNA-TB-index: analysis code for a three-gene peripheral blood circRNA-derived TB-index for tuberculosis"
+version: "1.0-submission"
+date-released: "2026-10-04"
+license: MIT
+type: software
+repository-code: "https://github.com/shaoxunyuan/blood-circRNA-TB-index"
+keywords:
+  - tuberculosis
+  - circRNA
+  - biomarker
+  - TB-index
+  - reproducibility
+authors:
+  - family-names: "Yuan"
+    given-names: "Shaoxun"
+  - family-names: "Wang"
+    given-names: "Kai"
+  - family-names: "Zhang"
+    given-names: "Jialin"
+  - family-names: "Wang"
+    given-names: "Xing"
+  - family-names: "Niu"
+    given-names: "Yayan"
+  - family-names: "Wu"
+    given-names: "Meiying"
+  - family-names: "Qian"
+    given-names: "Zhongqing"
+  - family-names: "Zhou"
+    given-names: "Tong"
+  - family-names: "Gu"
+    given-names: "Wanjun"
+preferred-citation:
+  type: article
+  title: "A three-gene peripheral blood circRNA-derived TB-index for tuberculosis"
+  authors:
+    - family-names: "Yuan"
+      given-names: "Shaoxun"
+    - family-names: "Wang"
+      given-names: "Kai"
+    - family-names: "Zhang"
+      given-names: "Jialin"
+    - family-names: "Wang"
+      given-names: "Xing"
+    - family-names: "Niu"
+      given-names: "Yayan"
+    - family-names: "Wu"
+      given-names: "Meiying"
+    - family-names: "Qian"
+      given-names: "Zhongqing"
+    - family-names: "Zhou"
+      given-names: "Tong"
+    - family-names: "Gu"
+      given-names: "Wanjun"
+  journal: "Biomarker Research"
+  # Volume, issue, pages and DOI will be added once assigned by the journal.

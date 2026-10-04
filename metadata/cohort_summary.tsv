@@ -1,0 +1,18 @@
+Cohort	Group	Participants
+IDC	APTB	23
+IDC	HC	24
+IDC	LTBI	13
+IDC	PNEU	14
+IDC	LC	35
+ITC	APTB	12
+ITC	HC	10
+ITC	LC	13
+PVC	PTB	8
+PVC	EPTB	8
+PVC	HC	16
+PVC	LTBI	10
+# IDC total = 109
+# ITC total = 35
+# PVC total = 42
+# Total participants = 186
+# Total RNA libraries = 225

@@ -1,0 +1,13 @@
+Item	Value
+iterations	500
+seed	2026
+median_panel_size	3
+panel_size_IQR	2-3
+panel_size_le3_pct	91.4
+selection_frequency_SOD2	49.8
+selection_frequency_ASXL1	28.2
+selection_frequency_GOLPH3	18
+selection_frequency_PCNX2	5
+median_in_bag_AUROC	0.952
+median_OOB_AUROC	0.953
+consensus_panel	SOD2+ASXL1+GOLPH3
