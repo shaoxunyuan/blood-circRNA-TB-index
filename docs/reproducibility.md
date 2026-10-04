@@ -31,7 +31,7 @@ corresponding manuscript section.
 | 11 | Longitudinal analysis | `code/11_longitudinal_analysis.R` | `results/locked_TB_index_scores.tsv` | `results/longitudinal_analysis.tsv` | Methods — Longitudinal analyses; Supplementary Table S6B |
 | 12 | Benchmarking against Sweeney3 and RISK6 | `code/12a_benchmark_tbindex_data.R`, `code/12b_benchmark_tbindex_matrix.R`, `code/12c_benchmark_tbindex_scores.R`, `code/12d_benchmark_risk6_genes.R`, `code/12e_benchmark_literature_data.R`, `code/12f_benchmark_add_genes.R` (run in this order) | `data/benchmark/circ_qn_*.rds`, `data/benchmark/linear_qn_*.rds`, `data/benchmark/{cohort}_TBindex_per_sample.csv` | per-sample benchmark scores; Supplementary Table S7A | Methods — Benchmarking against published signatures |
 | 13 | Paired DeLong comparisons | `code/13_DeLong_comparisons.R` | `data/benchmark/SF6_Sweeney3_RISK6_per_sample.csv` | `results/DeLong_comparisons.tsv` (16 comparisons) | Methods — Statistical analysis; Supplementary Table S7D |
-| 14 | BSJ refinement | `code/14_BSJ_refinement.R` | `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv` (circular isoforms of the three panel genes, restricted to the final cohort libraries: IDC 109 / ITC 35 / PVC 81) | `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv` | Methods — BSJ-level refinement; Supplementary Table S8; Figure 4 |
+| 14 | BSJ refinement | `code/14_BSJ_refinement.R` | `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv`; `data/metadata/{IDC,ITC,PVC}_metadata.tsv` | `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv` | Methods — BSJ-level refinement; Supplementary Table S8; Figure 4 |
 | 15 | Summary tables and final outputs | `code/15_generate_summary_tables.R` | `config/*.tsv`, `results/*.tsv` | `results/summary_consistency_check.tsv` | internal consistency check |
 
 `code/07_bootstrap_stability.R` accepts two optional command-line arguments (iterations,
@@ -52,6 +52,10 @@ symbol (`gene_name` / `Gene`).
 - Scripts **04, 06 and 08** reorder every matrix explicitly onto the sample
   order of the metadata after checking for duplicate, missing and extra sample
   IDs; no implicit ordering is assumed.
+- Script **14** enforces final cohort membership inside the script: it restricts each
+  BSJ table to the `Sample_ID` list of the corresponding cohort metadata file and
+  reports the libraries it drops. Final cohort membership is therefore enforced from
+  `Sample_ID` rather than assumed from the input table.
 
 ## What can be re-run from this repository alone
 

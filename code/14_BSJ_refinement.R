@@ -4,12 +4,20 @@
 #               contribution analysis for the locked TB-index genes SOD2,
 #               GOLPH3 and PCNX2, in IDC, ITC and PVC.
 # Inputs:       data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv
-#                 Long table, one row per circular isoform x library, restricted
-#                 to the three panel genes. Required columns:
+#                 Long table, one row per circular isoform x library, for the
+#                 three panel genes. Required columns:
 #                 gene_name, BSJ_ID, BioSample, TPM.
 #                 BSJ_ID identifies the junction as
 #                 chromosome|donor|acceptor|strand (hg38), so a BSJ is matched
 #                 across cohorts by genomic coordinates and never by row index.
+#                 The BSJ input tables are restricted internally to the final
+#                 cohort sample identifiers: libraries present in a table but
+#                 not listed in the cohort metadata are reported and dropped.
+#               data/metadata/{IDC,ITC,PVC}_metadata.tsv
+#                 Final per-library annotation; only Sample_ID is used, to
+#                 define final cohort membership (IDC 109 / ITC 35 / PVC 81
+#                 libraries). Membership is never inferred from time point,
+#                 baseline / follow-up status or treatment status.
 # Outputs:      results/BSJ_overlap_summary.tsv      per-gene cohort overlap counts
 #               results/BSJ_contribution_detail.tsv  per gene x cohort x BSJ detail
 #               results/BSJ_summary.tsv              per gene x cohort summary
@@ -28,10 +36,28 @@ source("code/_paths.R")
 
 GENES <- c("SOD2", "GOLPH3", "PCNX2")
 COHORTS <- c("IDC", "ITC", "PVC")
-TOL <- 1e-6
+N_LIB <- c(IDC = 109L, ITC = 35L, PVC = 81L)   # locked final cohort sizes
 
-## ---- 1. Per-cohort BSJ tables ---------------------------------------------
-read_bsj <- function(coh) {
+## ---- 1. Final cohort membership --------------------------------------------
+read_final_ids <- function(coh) {
+  f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
+  paths_require(f, paste0(coh, " final per-library metadata (Sample_ID)"),
+                "Supplementary Table S1; see data/metadata/README.md")
+  m <- fread(f)
+  if (!"Sample_ID" %in% names(m)) {
+    stop("Missing column 'Sample_ID' in ", basename(f), call. = FALSE)
+  }
+  ids <- unique(as.character(m$Sample_ID))
+  if (anyDuplicated(ids)) stop("Duplicate Sample_ID in ", basename(f), call. = FALSE)
+  if (length(ids) != N_LIB[[coh]]) {
+    stop(sprintf("%s metadata lists %d libraries but the final cohort has %d; see data/metadata/README.md",
+                 coh, length(ids), N_LIB[[coh]]), call. = FALSE)
+  }
+  ids
+}
+
+## ---- 2. Per-cohort BSJ tables, restricted to the final cohort --------------
+read_bsj <- function(coh, final_ids) {
   f <- file.path(DATA_BSJ, sprintf("%s_GOLPH3_SOD2_PCNX2_circular.tsv", coh))
   paths_require(f, paste0(coh, " circular isoform table for the three panel genes"),
                 "NCBI GEO GSE348100; see data/bsj/README.md")
@@ -43,10 +69,40 @@ read_bsj <- function(coh) {
          ". Required: ", paste(need, collapse = ", "), call. = FALSE)
   }
   d <- d[gene_name %in% GENES & !is.na(BSJ_ID) & BSJ_ID != ""]
+  d[, BioSample := as.character(BioSample)]
+
+  ## Final cohort membership is enforced here from Sample_ID; the input table is
+  ## never trusted to be pre-restricted.
+  extra_ids   <- setdiff(unique(d$BioSample), final_ids)
+  missing_ids <- setdiff(final_ids, unique(d$BioSample))
+  if (length(missing_ids) == length(final_ids)) {
+    stop(sprintf("%s: none of the %d final cohort Sample_IDs occur in %s. The metadata and the BSJ table appear to use different sample identifiers; see data/metadata/README.md.",
+                 coh, length(final_ids), basename(f)), call. = FALSE)
+  }
+  if (length(extra_ids)) {
+    message(sprintf("  %s: dropping %d BSJ-input library(ies) not present in the final cohort metadata (%s%s)",
+                    coh, length(extra_ids), paste(head(extra_ids, 5), collapse = ", "),
+                    if (length(extra_ids) > 5) ", ..." else ""))
+  }
+  if (length(missing_ids)) {
+    message(sprintf("  %s: %d final-cohort library(ies) have no quantified circular isoform row for the panel genes and contribute zero (%s%s)",
+                    coh, length(missing_ids), paste(head(missing_ids, 5), collapse = ", "),
+                    if (length(missing_ids) > 5) ", ..." else ""))
+  }
+  d <- d[BioSample %in% final_ids]
+  if (!nrow(d)) {
+    stop(sprintf("%s: no BSJ rows remain after restricting to the final cohort", coh), call. = FALSE)
+  }
+  if (uniqueN(d$BioSample) != length(final_ids) - length(missing_ids)) {
+    stop(sprintf("%s: restriction to the final cohort did not converge", coh), call. = FALSE)
+  }
+  message(sprintf("  %s: %d of %d final-cohort libraries contribute quantified panel-gene junction rows",
+                  coh, uniqueN(d$BioSample), length(final_ids)))
   d[, .(gene_name, BSJ_ID, BioSample, TPM = as.numeric(TPM))]
 }
 
-raw <- lapply(COHORTS, read_bsj); names(raw) <- COHORTS
+final_ids <- lapply(COHORTS, read_final_ids); names(final_ids) <- COHORTS
+raw <- Map(read_bsj, COHORTS, final_ids); names(raw) <- COHORTS
 
 ## Cohort-pooled TPM per gene x BSJ (one row per detected junction).
 pooled <- lapply(raw, function(d) d[, .(pooled_TPM = sum(TPM)), by = .(gene_name, BSJ_ID)])

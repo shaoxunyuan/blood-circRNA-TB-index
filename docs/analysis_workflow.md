@@ -129,7 +129,7 @@ ones the scripts actually use.
 ### Step 14 — BSJ refinement
 
 - **Script:** `code/14_BSJ_refinement.R`
-- **Input:** `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv` (final cohort-specific BSJ abundance and annotation for the three panel genes; long format with `gene_name`, `BSJ_ID`, `BioSample`, `TPM`). Each file is restricted to the libraries of the final cohort (IDC 109 / ITC 35 / PVC 81); this restriction is part of the definition, see `data/bsj/README.md`.
+- **Input:** `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv` (BSJ abundance and annotation for the three panel genes; long format with `gene_name`, `BSJ_ID`, `BioSample`, `TPM`) **+** `data/metadata/{IDC,ITC,PVC}_metadata.tsv` (final cohort membership). The script restricts each BSJ table internally to the final `Sample_ID` list of the cohort metadata, reports the libraries it drops, and expects the final cohort sizes IDC 109 / ITC 35 / PVC 81. `data/bsj/README.md` documents how the input tables are built.
 - **Output:** `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv`
 - **Purpose:** Cross-cohort BSJ overlap and contribution analysis for the locked genes. A BSJ is matched across cohorts by its genomic junction (`BSJ_ID` = chromosome|donor|acceptor|strand), never by row index. For each gene and cohort the analysis reports the all-three-cohort count, the shared and cohort-specific junction counts, and the contribution of the largest shared BSJ, of the other shared BSJs and of the cohort-specific BSJs to the cohort-pooled circular TPM of that gene.
 - **Manuscript:** Methods — BSJ-level refinement; Results — BSJ-level refinement; **Figure 4**; **Supplementary Table S8**

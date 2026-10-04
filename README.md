@@ -79,6 +79,12 @@ Rscript code/10_demographic_adjustment.R
 # 11  longitudinal analysis (PVC)
 Rscript code/11_longitudinal_analysis.R
 # 12a-12f  Sweeney3 / RISK6 benchmark
+Rscript code/12a_benchmark_tbindex_data.R
+Rscript code/12b_benchmark_tbindex_matrix.R
+Rscript code/12c_benchmark_tbindex_scores.R
+Rscript code/12d_benchmark_risk6_genes.R
+Rscript code/12e_benchmark_literature_data.R
+Rscript code/12f_benchmark_add_genes.R
 # 13  paired DeLong comparisons
 Rscript code/13_DeLong_comparisons.R
 # 14  BSJ refinement
@@ -86,6 +92,9 @@ Rscript code/14_BSJ_refinement.R
 # 15  summary tables and consistency check
 Rscript code/15_generate_summary_tables.R
 ```
+
+The benchmark steps require the deposited processed benchmark inputs documented in
+`data/benchmark/README.md`.
 
 Details, including which steps require the deposited matrices and what each script
 expects, are in `docs/analysis_workflow.md` and `docs/reproducibility.md`.
