@@ -25,14 +25,20 @@ cohort**:
 | `ITC_…_circular.tsv` | 35 |
 | `PVC_…_circular.tsv` | 81 |
 
-The cohort restriction is part of the analysis definition, not a formatting detail:
-the source tables contain libraries that are not part of the final cohort (the ITC
-pre-filter table contains 36 libraries, and the PVC isoform table contains follow-up and
-post-treatment libraries). Leaving them in changes the junction sets and the
-overlap/contribution values, so a BSJ that is detected only in an excluded library must
-not enter the analysis. A BSJ is identified by `BSJ_ID`
-(`chromosome|donor|acceptor|strand`, hg38) and is matched across cohorts by these
-genomic coordinates only — never by row order or row number.
+The cohort restriction is part of the analysis definition, not a formatting detail.
+Source isoform-level tables may contain libraries outside the final analysis set, so the
+BSJ input files must be restricted by the final sample identifiers documented in the
+cohort metadata. The final BSJ analysis uses **109 IDC, 35 ITC and 81 PVC RNA-seq
+libraries**.
+
+For each cohort, retain only the `BioSample` identifiers present in the final cohort
+metadata used by the manuscript analysis. Do not select libraries by time point, baseline
+/ follow-up status or treatment status: the 81 PVC libraries, for example, already
+include the longitudinal time points of the final cohort, and the only reliable
+selection key is the final sample identifier list.
+
+A BSJ is identified by `BSJ_ID` (`chromosome|donor|acceptor|strand`, hg38) and is matched
+across cohorts by these genomic coordinates only — never by row order or row number.
 
 **Main columns**
 

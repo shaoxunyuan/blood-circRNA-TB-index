@@ -5,8 +5,11 @@ QA date: 2026-10-04
 
 Verification method: the `data/` inputs were reconstructed from the original
 pre-filter gene-level tables and the released metadata, and the pipeline was executed
-in a clean copy of the repository. Every "Observed" value below was produced by running
-the shipped scripts; none is asserted from memory.
+in a clean copy of the repository. Most "Observed" values below were produced by running
+the shipped scripts in a clean repository copy. Step 13 was not re-executed because its
+per-sample benchmark input is distributed with the deposited data rather than in this
+repository; the shipped DeLong result table was checked for structure and consistency
+rather than regenerated.
 
 ---
 
@@ -48,7 +51,7 @@ the shipped scripts; none is asserted from memory.
 | Step 07 — consensus panel | SOD2 + ASXL1 + GOLPH3 | SOD2 + ASXL1 + GOLPH3 | PASS |
 | Step 08 — TB-index scores | 225 | 225 (109 / 35 / 81) | PASS |
 | Step 09 — Table 2 metrics | 11 comparisons, 22 threshold rows | 11 / 22, all within 1e-3 | PASS |
-| Step 13 — paired DeLong comparisons | 16, raw and BH-adjusted | 16 (shipped; benchmark input not redistributed) | NOT RE-RUN |
+| Step 13 — paired DeLong comparisons | 16 comparisons, raw and BH-adjusted *P* values | 16 (shipped; per-sample benchmark input not in this repository) | NOT RE-RUN |
 | Step 14 — BSJ overlap and contribution | see Step 14 table below | re-ran script 14; all three output files byte-identical to the shipped files | PASS |
 | Step 15 — summary consistency | all checks pass | all 10 checks pass with real observed values | PASS |
 
@@ -116,9 +119,12 @@ difference is an **implementation-level exact-tie difference**, not a statistica
 the panel size, the consensus panel, the locked panel, the AUROC summaries and every
 conclusion are unchanged. The script prints the difference rather than absorbing it.
 
-**Step 13 was not re-executed** because its input (the per-sample benchmark score table)
-is distributed with the deposited data rather than in this repository; its result file is
-unchanged from the previously verified state.
+**Step 13 was not re-executed.** The required per-sample benchmark score table is
+distributed with the deposited processed data and is not included in the GitHub
+repository package, so `code/13_DeLong_comparisons.R` was not run here. Its result file
+(`results/DeLong_comparisons.tsv`) is unchanged from the previously verified state and
+was checked for structure and internal consistency (16 comparisons, unadjusted and
+BH-adjusted *P* values, one BH family) rather than regenerated.
 
 **Step 14 was re-executed** from the final cohort-specific circular isoform tables
 (circular isoforms of SOD2, GOLPH3 and PCNX2, restricted to the final IDC / ITC / PVC
@@ -128,7 +134,8 @@ library sets, 109 / 35 / 81). Re-running `code/14_BSJ_refinement.R` reproduced
 in-script expected-value QA passed (all-three-cohort junctions 1 / 1 / 12; largest-shared
 contributions 95.5 / 89.7 / 73.5, 99.1 / 99.7 / 100.0, 26.4 / 21.8 / 24.9). The junction
 identity is the genomic coordinate `BSJ_ID` (`chromosome|donor|acceptor|strand`); no
-Top-5 / IDC-locked-junction selection is used anywhere.
+fixed Top-N junction selection and no IDC-locked-junction validation step is used
+anywhere.
 
 ---
 
@@ -159,5 +166,13 @@ All of the pass conditions hold:
 9. no core result is hard-coded;
 10. the pipeline runs as documented.
 
-The single remaining item is the ±1/500 bootstrap selection-frequency difference
-described above.
+The single remaining analytical note is the bootstrap selection-frequency difference
+described above: ASXL1 28.2% (141/500) reconstructed versus 28.4% in the manuscript, and
+GOLPH3 18.0% (90/500) versus 17.8% — one bootstrap iteration of 500, caused by
+implementation-level exact-tie handling. The panel size, consensus panel, locked panel,
+AUROC summaries and every headline conclusion are unchanged.
+
+Separately, and as a scope note rather than a defect: **Step 13 was not re-executed**
+because the required per-sample benchmark input is distributed with the deposited
+processed data rather than in the repository package. Its shipped result table was
+checked for structure and internal consistency.

@@ -65,8 +65,8 @@ for (coh in COHORTS) {
   d <- read_long(coh)
   absent <- setdiff(samples, unique(d$BioSample))
   if (length(absent)) {
-    stop(sprintf("%s: %d metadata sample(s) are absent from the pre-filter table (first: %s). The pre-filter matrix must contain exactly the final %d libraries for this cohort; see data/qn/raw/README.md.",
-                 coh, length(absent), absent[1], EXPECTED_LIBRARIES[[coh]]), call. = FALSE)
+    stop(sprintf("%s: %d metadata sample(s) are absent from the pre-filter table (first: %s). The pre-filter table must contain all libraries listed in the final cohort metadata; extra libraries are allowed and are dropped explicitly; see data/qn/raw/README.md.",
+                 coh, length(absent), absent[1]), call. = FALSE)
   }
   extra <- setdiff(unique(d$BioSample), samples)
   if (length(extra)) {

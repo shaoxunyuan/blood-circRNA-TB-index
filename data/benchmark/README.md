@@ -8,6 +8,7 @@
 | `linear_qn_{IDC,ITC,PVC}.rds` | Linear-RNA QN matrices (13,989 genes) used for Sweeney3 / RISK6 |
 | `{IDC,ITC,PVC}_TBindex_per_sample.csv` | Per-sample TB-index used in the benchmark |
 | `benchmark_literature.xlsx` | Curated literature comparison (**Supplementary Table S7A**) |
+| `SF6_Sweeney3_RISK6_per_sample.csv` | Per-sample TB-index and Sweeney3 / RISK6 scores used for the paired DeLong comparisons (Supplementary Table S7) |
 
 **Where to obtain it**
 
@@ -15,6 +16,9 @@
 - Linear-RNA matrices: derived from the same RNA-seq quantification; the public
   validation cohort is available from NCBI BioProject **PRJNA588242**.
 - Literature comparison: **Supplementary Table S7A** of the manuscript.
+- Per-sample benchmark scores for the DeLong comparisons
+  (`SF6_Sweeney3_RISK6_per_sample.csv`): **Supplementary Table S7** / NCBI GEO
+  **GSE348100**.
 
 **Main columns**
 
@@ -33,6 +37,6 @@ Benchmarking is performed using the scripts
 
 run in this order. Paired ROC comparisons are then performed using
 
-- `code/13_DeLong_comparisons.R`
+- `code/13_DeLong_comparisons.R` (reads `SF6_Sweeney3_RISK6_per_sample.csv`)
 
 The reported benchmark results are shipped as `results/DeLong_comparisons.tsv`.
