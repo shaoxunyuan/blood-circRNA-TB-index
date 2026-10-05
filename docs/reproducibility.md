@@ -108,8 +108,9 @@ Supplementary Tables S1–S8:
 Selected analysis steps were re-run for reproducibility verification using the
 documented processed inputs; the shipped result tables correspond to the
 manuscript-reported final results. Not every upstream data-processing step is rerun
-automatically from raw sequencing data, because in-house raw sequencing files are not
-publicly released.
+automatically from raw sequencing data, because raw sequencing data from the in-house
+cohorts are not publicly available: the original informed consent did not authorize
+public release of individual-level sequencing data.
 
 ## Interpretation notes
 

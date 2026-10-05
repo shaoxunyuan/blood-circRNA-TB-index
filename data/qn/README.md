@@ -10,7 +10,8 @@
 
 **Where to obtain it**
 
-- NCBI GEO **GSE348100** (processed circRNA-derived expression matrices).
+- Processed expression matrices and associated sample metadata have been deposited in
+  NCBI GEO under accession **GSE348100** and will be released upon publication.
 - Equivalent content is also published as **Supplementary Table S2** of the manuscript
   (sheets `Before_QN`, `After_QN`, `QN_reference`).
 

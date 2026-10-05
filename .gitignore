@@ -26,7 +26,7 @@ output/**
 !output/.gitkeep
 
 # Never commit raw sequencing or bulk data
-raw/
+/raw/
 fastq/
 bam/
 cram/
@@ -40,3 +40,9 @@ sam/
 *.sam
 data/**/*.rds
 data/**/*.RData
+# data/qn/raw/ holds pre-normalization processed matrices used as analysis inputs.
+# Keep the directory README (it documents the required files); ignore the bulk
+# matrix files themselves. Note that "raw" here means pre-normalization processed
+# matrices, not raw sequencing reads.
+data/qn/raw/*
+!data/qn/raw/README.md

@@ -101,16 +101,18 @@ expects, are in `docs/analysis_workflow.md` and `docs/reproducibility.md`.
 
 ## Data availability
 
-In-house raw sequencing data are not publicly released because the original consent did
-not authorize public release of individual-level sequencing data.
+Processed expression matrices and associated sample metadata have been deposited in NCBI
+GEO under accession **GSE348100** and will be released upon publication.
 
-Processed circRNA-derived expression matrices have been deposited in NCBI GEO under
-accession **GSE348100** and will be released upon publication.
+Raw sequencing data from the in-house cohorts are not publicly available because the
+original informed consent did not authorize public release of individual-level sequencing
+data.
 
-The public validation RNA-seq dataset is available from NCBI BioProject **PRJNA588242**.
+Raw sequencing data for the public validation cohort are publicly available from NCBI
+BioProject **PRJNA588242**.
 
-This repository contains analysis code, configuration files, lightweight derived
-results, and reproducibility documentation.
+This repository contains the analysis code, configuration files, reproducibility
+documentation, and selected lightweight derived results used in the manuscript.
 
 ## Software environment
 

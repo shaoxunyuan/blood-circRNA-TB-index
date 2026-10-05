@@ -7,12 +7,12 @@ No expression matrix is redistributed in this repository. This directory defines
 
 | Data | Source | Status |
 |------|--------|--------|
-| In-house raw sequencing (IDC, ITC) | — | **Not publicly released.** The original consent did not authorize public release of individual-level sequencing data. |
-| Processed circRNA-derived expression matrices (IDC, ITC, PVC) | NCBI GEO **GSE348100** | Deposited; released upon publication |
-| Public pediatric validation cohort (raw RNA-seq) | NCBI BioProject **PRJNA588242** | Public |
+| In-house raw sequencing (IDC, ITC) | — | **Not publicly available.** The original informed consent did not authorize public release of individual-level sequencing data. |
+| Processed expression matrices and associated sample metadata (IDC, ITC, PVC) | NCBI GEO **GSE348100** | Deposited; will be released upon publication |
+| Public pediatric validation cohort (raw sequencing) | NCBI BioProject **PRJNA588242** | Publicly available |
 
-> Processed circRNA-derived expression matrices have been deposited in NCBI GEO under
-> accession GSE348100 and will be released upon publication.
+> Processed expression matrices and associated sample metadata have been deposited in
+> NCBI GEO under accession GSE348100 and will be released upon publication.
 
 ## Layout
 

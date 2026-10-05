@@ -13,8 +13,9 @@
 **Where to obtain it**
 
 - circRNA matrices: NCBI GEO **GSE348100**.
-- Linear-RNA matrices: derived from the same RNA-seq quantification; the public
-  validation cohort is available from NCBI BioProject **PRJNA588242**.
+- Linear-RNA matrices: derived from the same RNA-seq quantification; raw sequencing data
+  for the public validation cohort are publicly available from NCBI BioProject
+  **PRJNA588242**.
 - Literature comparison: **Supplementary Table S7A** of the manuscript.
 - Per-sample benchmark scores for the DeLong comparisons
   (`SF6_Sweeney3_RISK6_per_sample.csv`): **Supplementary Table S7** / NCBI GEO

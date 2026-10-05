@@ -1,17 +1,23 @@
 # Data availability
 
-## Statement
+## In-house cohorts
 
-In-house raw sequencing data are not publicly released because the original consent did
-not authorize public release of individual-level sequencing data.
+Processed expression matrices and associated sample metadata have been deposited in NCBI
+GEO under accession **GSE348100** and will be released upon publication.
 
-Processed circRNA-derived expression matrices have been deposited in NCBI GEO under
-accession **GSE348100** and will be released upon publication.
+Raw sequencing data from the in-house cohorts are not publicly available because the
+original informed consent did not authorize public release of individual-level sequencing
+data.
 
-The public validation RNA-seq dataset is available from NCBI BioProject **PRJNA588242**.
+## Public validation cohort
 
-This repository contains analysis code, configuration files, lightweight derived
-results, and reproducibility documentation.
+Raw sequencing data for the public validation cohort are publicly available from NCBI
+BioProject **PRJNA588242**.
+
+## Code and derived outputs
+
+Analysis code, configuration files, reproducibility documentation, and selected
+lightweight derived outputs are provided in this GitHub repository.
 
 ## What is where
 
@@ -28,8 +34,8 @@ results, and reproducibility documentation.
 ## What is deliberately not in this repository
 
 - FASTQ / BAM / CRAM / SAM and any raw or intermediate alignment files.
-- In-house individual-level sequencing data. The original consent does not authorize
-  public release of individual-level sequencing data.
+- In-house individual-level sequencing data. The original informed consent did not
+  authorize public release of individual-level sequencing data.
 - Full-scale expression matrices that are already deposited in GEO.
 - Clinical source records (participant names, medical-record numbers, contact details,
   addresses or other direct identifiers). Only de-identified, published annotation is
