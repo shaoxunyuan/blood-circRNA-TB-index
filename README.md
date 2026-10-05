@@ -47,7 +47,7 @@ sensitivity information and do not redefine the screen.
 | `metadata/` | `sample_dictionary.tsv` (de-identified per-library annotation, 225 libraries) and `cohort_summary.tsv`. |
 | `results/` | Lightweight derived results: common feature gene list, candidate genes, locked TB-index scores, diagnostic performance (threshold-free metrics plus operating characteristics at the two locked thresholds), bootstrap panel-size / selection-frequency / AUROC summaries, paired DeLong comparisons, BSJ overlap / contribution / summary tables. |
 | `env/` | `sessionInfo.txt` and `package_versions.tsv` captured from the analysis environment. |
-| `docs/` | `analysis_workflow.md`, `data_availability.md`, `reproducibility.md`. |
+| `docs/` | `analysis_workflow.md`, `reproducibility.md`, `data_availability.md`, `benchmark_pipeline.md`. |
 | `output/` | Default write directory when scripts are re-run. |
 
 ## Reproducibility

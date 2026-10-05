@@ -1,4 +1,4 @@
-# benchmark_pipeline_map.md
+# Benchmark pipeline
 
 Data flow of the Sweeney3 / RISK6 benchmark (steps 12a–12f and 13). Every path is
 relative to the repository root and every input is declared in
@@ -14,10 +14,11 @@ relative to the repository root and every input is declared in
 | `12f_benchmark_add_genes.R` | the 12a per-sample table; linear-RNA QN values for GBP5, DUSP3, KLF2 | per-sample table extended with the Sweeney3 constituent genes | 13 |
 | `13_DeLong_comparisons.R` | `data/benchmark/SF6_Sweeney3_RISK6_per_sample.csv` | `results/DeLong_comparisons.tsv` (16 paired comparisons, one BH family) | — |
 
-## Hidden dependencies
+## Inputs and dependencies
 
-None. Every input is either shipped or documented in `data/*/README.md`. `12a` reads the
-same per-cohort metadata TSVs that steps 2-11 use; no second metadata file is needed.
+Every benchmark input is either shipped in `results/` or documented in
+`data/*/README.md`; no undeclared input is read. `12a` reads the same per-cohort metadata
+TSVs that steps 2–11 use, so no second metadata file is needed.
 
 ## Metadata fields used by the benchmark
 
