@@ -24,7 +24,7 @@ source("code/_paths.R")
 
 EXPECTED_CANDIDATES <- 18L
 DELTA_AUC_CUTOFF <- 0.02
-## Manuscript Figure 2D reference path (tolerance-checked, never hard-coded as output).
+## Manuscript the greedy forward-selection path reference path (tolerance-checked, never hard-coded as output).
 EXPECTED_PATH <- data.table(
   gene = c("SOD2", "GOLPH3", "PCNX2"),
   cumulative_auc = c(0.863, 0.924, 0.949)
@@ -37,7 +37,7 @@ meta_f <- file.path(DATA_META, "IDC_metadata.tsv")
 cand_f <- file.path(RESULTS, "core18_candidates.tsv")
 paths_require(mat_f,  "IDC QN log2(TPM+1) host-gene matrix (genes x samples)",
               "output of code/03_frozen_IDC_reference_normalization.R")
-paths_require(meta_f, "IDC per-library metadata", "Supplementary Table S1")
+paths_require(meta_f, "IDC per-library metadata", "the de-identified cohort sample metadata")
 paths_require(cand_f, "direction-concordant candidates (output of script 05)",
               "run code/05_four_way_candidate_intersection.R")
 
@@ -94,7 +94,7 @@ lock <- data.table(Gene = selected,
                    Weight = unname(w[selected]))
 fwrite(lock, file.path(CONFIG, "locked_panel.tsv"), sep = "\t", quote = FALSE)
 
-## ---- 6. QA: the locked panel and its path reproduce Figure 2D -------------
+## ---- 6. QA: the locked panel and its path reproduce the greedy forward-selection path -------------
 if (!identical(selected, EXPECTED_PATH$gene)) {
   stop("Locked panel mismatch: obtained [", paste(selected, collapse = ", "),
        "], expected [", paste(EXPECTED_PATH$gene, collapse = ", "), "]", call. = FALSE)

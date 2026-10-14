@@ -11,9 +11,10 @@ second metadata input format is used anywhere in the repository.
 
 **Where to obtain it**
 
-- Same content as **Supplementary Table S1** of the manuscript.
-- A de-identified, repository-ready version is also shipped at
-  `metadata/sample_dictionary.tsv` (all 225 libraries).
+- A de-identified, repository-ready version is shipped at
+  `metadata/sample_dictionary.tsv` (all 225 libraries). Split that file by `Cohort` to
+  obtain the three analysis input tables listed above, or download the matching
+  de-identified sample metadata from NCBI GEO **GSE348100**.
 
   `Sample_ID` must be the sample identifier used by the expression and quantification
   inputs of the same cohort (`data/qn/...` matrices, `data/bsj/...` tables); the scripts

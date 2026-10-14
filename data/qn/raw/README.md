@@ -15,9 +15,10 @@
 
 - These processed gene-level matrices accompany the deposited data: processed expression
   matrices and associated sample metadata have been deposited in NCBI GEO under accession
-  **GSE348100** and will be released upon publication.
-- Raw sequencing data from the in-house cohorts are not publicly available because the
-  original informed consent did not authorize public release of individual-level
+  **GSE348100**. The GEO record is currently private and is planned to be made publicly
+  available upon manuscript acceptance.
+- Raw sequencing data (FASTQ) from the in-house cohorts are not publicly available because
+  the original informed consent did not authorize public release of individual-level
   sequencing data.
 
 **Main columns**

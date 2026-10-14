@@ -58,7 +58,7 @@ ones the scripts actually use.
 - **Output:** `results/greedy_selection_path.tsv`, `config/locked_panel.tsv`
 - **Purpose:** Greedy forward selection over the 18 candidates against APTB versus pooled
   non-APTB, stopping when the incremental AUROC is <= 0.02.
-- **Manuscript:** Methods — Greedy forward selection and panel locking; Figure 2D
+- **Manuscript:** Methods — Greedy forward selection and panel locking
 
 ### Step 7 — Bootstrap stability
 
@@ -68,7 +68,7 @@ ones the scripts actually use.
 - **Purpose:** Re-run the complete discovery and greedy-selection procedure in 500
   stratified bootstrap resamples and summarise panel size, selection frequency and the
   in-bag / out-of-bag AUROC of the locked panel.
-- **Manuscript:** Methods — Bootstrap stability analysis; Figure 2E–2G
+- **Manuscript:** Methods — Bootstrap stability analysis
 
 ### Step 8 — TB-index scoring
 
@@ -86,7 +86,7 @@ ones the scripts actually use.
 - **Output:** `results/diagnostic_performance.tsv`, `results/diagnostic_thresholds.tsv`
 - **Purpose:** AUROC with DeLong 95% CI and AUPRC for every reported comparison, plus
   sensitivity, specificity, PPV, NPV and the TP/FN/TN/FP counts at both locked thresholds.
-- **Manuscript:** Methods — Diagnostic performance; Table 2; Figure 3
+- **Manuscript:** Methods — Diagnostic performance; the independent-evaluation and diagnostic-performance analysis
 
 ### Step 10 — Age- and sex-adjusted analyses
 
@@ -95,7 +95,7 @@ ones the scripts actually use.
 - **Output:** `results/demographic_adjustment.tsv`
 - **Purpose:** Fit the TB-index ~ Age + Sex residual model and the per-contrast
   disease ~ TB-index + Age + Sex logistic models.
-- **Manuscript:** Methods — Age- and sex-adjusted analyses; Supplementary Table S5
+- **Manuscript:** Methods — Age- and sex-adjusted analyses
 
 ### Step 11 — Longitudinal analysis
 
@@ -104,7 +104,7 @@ ones the scripts actually use.
 - **Output:** `results/longitudinal_analysis.tsv`
 - **Purpose:** Paired within-participant comparisons of adjacent PVC time points, reported
   as exploratory.
-- **Manuscript:** Methods — Longitudinal analyses; Supplementary Table S6B
+- **Manuscript:** Methods — Longitudinal analyses
 
 ### Step 12 — Benchmark against Sweeney3 and RISK6
 
@@ -112,19 +112,23 @@ ones the scripts actually use.
   `code/12c_benchmark_tbindex_scores.R`, `code/12d_benchmark_risk6_genes.R`,
   `code/12e_benchmark_literature_data.R`, `code/12f_benchmark_add_genes.R` (run in this order)
 - **Input:** `data/benchmark/{circ,linear}_qn_*.rds`, `data/benchmark/{cohort}_TBindex_per_sample.csv`, `data/metadata/{cohort}_metadata.tsv`
-- **Output:** per-sample benchmark scores and the literature comparison (Supplementary Table S7A)
-- **Purpose:** Apply the published Sweeney3 and RISK6 formulas to the linear-RNA QN values
-  without re-estimating coefficients or directions.
+- **Output:** per-sample benchmark scores and the literature comparison (the curated literature-comparison table)
+- **Purpose:** Apply the published Sweeney3 formula and the published **RISK6**
+  RNA-seq/microarray geometric-mean formula to frozen IDC-reference QN-normalized linear-RNA values without
+  re-estimating coefficients or directions. RISK6 =
+  `GM(GBP2, FCGR1B, SERPING1) − GM(TUBGCP6, TRMT2A, SDR39U1)` (geometric means on the linear
+  TPM+1 scale from QN log2(TPM+1); Penn-Nicholson et al., 2020). This is **not** the original
+  qRT-PCR RISK6 pair-ratio/lookup-table algorithm.
 - **Manuscript:** Methods — Benchmarking against published signatures
 
 ### Step 13 — Paired DeLong comparisons
 
 - **Script:** `code/13_DeLong_comparisons.R`
-- **Input:** `data/benchmark/SF6_Sweeney3_RISK6_per_sample.csv` (per-sample TB-index and benchmark signature scores)
+- **Input:** `data/benchmark/benchmark_Sweeney3_RISK6_per_sample.csv` (per-sample TB-index and benchmark signature scores)
 - **Output:** `results/DeLong_comparisons.tsv`
 - **Purpose:** Paired DeLong tests between the TB-index and each comparator signature for
   all 16 comparisons, with unadjusted and BH-adjusted P values from one family.
-- **Manuscript:** Methods — Statistical analysis; Supplementary Table S7D
+- **Manuscript:** Methods — Statistical analysis
 
 ### Step 14 — BSJ refinement
 
@@ -132,15 +136,15 @@ ones the scripts actually use.
 - **Input:** `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv` (BSJ abundance and annotation for the three panel genes; long format with `gene_name`, `BSJ_ID`, `BioSample`, `TPM`) **+** `data/metadata/{IDC,ITC,PVC}_metadata.tsv` (final cohort membership). The script restricts each BSJ table internally to the final `Sample_ID` list of the cohort metadata, reports the libraries it drops, and expects the final cohort sizes IDC 109 / ITC 35 / PVC 81. `data/bsj/README.md` documents how the input tables are built.
 - **Output:** `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv`
 - **Purpose:** Cross-cohort BSJ overlap and contribution analysis for the locked genes. A BSJ is matched across cohorts by its genomic junction (`BSJ_ID` = chromosome|donor|acceptor|strand), never by row index. For each gene and cohort the analysis reports the all-three-cohort count, the shared and cohort-specific junction counts, and the contribution of the largest shared BSJ, of the other shared BSJs and of the cohort-specific BSJs to the cohort-pooled circular TPM of that gene.
-- **Manuscript:** Methods — BSJ-level refinement; Results — BSJ-level refinement; **Figure 4**; **Supplementary Table S8**
+- **Manuscript:** Methods — BSJ-level refinement
 
-**Mapping to the manuscript deliverables**
+**BSJ result files**
 
-| Script 14 output | Supplementary Table S8 sheet | Figure 4 |
-|------------------|------------------------------|----------|
-| `BSJ_overlap_summary.tsv` | S8A (per-gene cohort overlap counts) | **Figure 4A** (cross-cohort BSJ overlap) |
-| `BSJ_contribution_detail.tsv` | S8B / S8C / S8D (per-BSJ annotation, pooled TPM and contribution) | **Figure 4B** (largest shared, other shared, cohort-specific) |
-| `BSJ_summary.tsv` | S8D summary and S8E–S8G (per-sample BSJ and gene-level detail) | **Figure 4B** |
+| Script 14 output | Content |
+|------------------|---------|
+| `BSJ_overlap_summary.tsv` | Per-gene cross-cohort BSJ overlap counts |
+| `BSJ_contribution_detail.tsv` | Per-BSJ annotation, pooled TPM, and contribution category |
+| `BSJ_summary.tsv` | Per-sample BSJ and gene-level detail |
 
 ### Step 15 — Summary tables and consistency check
 
@@ -175,7 +179,6 @@ ones the scripts actually use.
 
 ## Working from the shipped files only
 
-`results/` already contains the final derived values for every step, matching the
-manuscript and Supplementary Tables S1–S8. Each script stops with an explicit
-`Required input file not found` message naming the file and its source when an input is
-missing.
+`results/` already contains the final derived values for every step. Each script stops
+with an explicit `Required input file not found` message naming the file and its source
+when an input is missing.

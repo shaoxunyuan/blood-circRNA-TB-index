@@ -8,8 +8,7 @@
 
 **Where to obtain it**
 
-- Derived from the isoform-level quantification used in the manuscript; the
-  corresponding summary tables are published as **Supplementary Table S8**.
+- Derived from isoform-level circular quantification for the three locked panel genes.
 - If the isoform-level tables are not available, `code/14_BSJ_refinement.R` cannot be
   re-run, but `results/BSJ_summary.tsv` already contains the reported values.
 

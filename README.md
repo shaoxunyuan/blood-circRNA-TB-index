@@ -101,18 +101,16 @@ expects, are in `docs/analysis_workflow.md` and `docs/reproducibility.md`.
 
 ## Data availability
 
-Processed expression matrices and associated sample metadata have been deposited in NCBI
-GEO under accession **GSE348100** and will be released upon publication.
-
-Raw sequencing data from the in-house cohorts are not publicly available because the
-original informed consent did not authorize public release of individual-level sequencing
-data.
-
-Raw sequencing data for the public validation cohort are publicly available from NCBI
-BioProject **PRJNA588242**.
-
-This repository contains the analysis code, configuration files, reproducibility
-documentation, and selected lightweight derived results used in the manuscript.
+Processed expression matrices and associated sample metadata from the in-house discovery
+cohort (IDC) and in-house test cohort (ITC) have been deposited in NCBI GEO under
+accession **GSE348100**. The GEO record is currently private and is planned to be made
+publicly available upon manuscript acceptance. During peer review, the private GEO
+submission can be accessed using a reviewer token provided through the journal. Raw
+sequencing data from the in-house cohorts are not publicly available because the original
+informed consent did not authorize public release of individual-level sequencing data.
+Analysis code and supporting processed data are provided in this repository. Public
+validation cohort (PVC) sequencing data are available from NCBI BioProject
+**PRJNA588242**.
 
 ## Software environment
 

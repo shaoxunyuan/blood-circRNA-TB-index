@@ -8,7 +8,7 @@
 # Dependencies: R >= 4.4.3; data.table; openxlsx.
 # ---------------------------------------------------------------------------
 # =============================================================================
-# build_S8_expression_matrix.R — 给 S8.xlsx 新增"3 circRNA + 9 linearRNA"表达矩阵
+# build_benchmark_expression_matrix.R — 给 benchmark workbook 新增"3 circRNA + 9 linearRNA"表达矩阵
 #
 # 需求（2026-08-08）：Figure_benchmark_TBindex.xlsx 应包含一个矩阵 =
 #   本项目 3 个 circRNA 基因（GOLPH3/SOD2/PCNX2）的表达
@@ -18,7 +18,7 @@
 # 数据来源:
 #   circRNA QN: data/benchmark/circ_qn_{IDC,ITC,PVC}.rds
 #   linear  QN: data/benchmark/linear_qn_{IDC,ITC,PVC}.rds
-#   样本集:    基准分析的共同样本（Supplementary Table S7 per-sample score table）
+#   样本集:    基准分析的共同样本（the literature-benchmark results per-sample score table）
 #
 # 输出: 新增 sheet "Expression_matrix_3circ_9lin"
 #   (Sample_ID, Cohort, Group, TimePoint,
@@ -57,7 +57,7 @@ COHORTS <- c("IDC", "ITC", "PVC")
 QN_FILE <- c(IDC = "qn_discovery.rds", ITC = "qn_TBnovogene2.rds", PVC = "qn_PRJNA588242.rds")
 
 cat("================================================================\n")
-cat(" 给 S8.xlsx 新增 3circ+9lin 表达矩阵\n")
+cat(" 给 benchmark workbook 新增 3circ+9lin 表达矩阵\n")
 cat("================================================================\n")
 stopifnot(file.exists(S8))
 
@@ -99,7 +99,7 @@ setcolorder(mx, c("Sample_ID", "Cohort", "Group", "TimePoint",
 setorder(mx, Cohort, Group, Sample_ID)
 cat(sprintf("合并矩阵: %d 样本 × %d 列（12 个基因）\n", nrow(mx), ncol(mx) - 4))
 
-# 写入 S8.xlsx
+# 写入 benchmark workbook
 wb <- loadWorkbook(S8)
 if ("Expression_matrix_3circ_9lin" %in% names(wb)) removeWorksheet(wb, "Expression_matrix_3circ_9lin")
 addWorksheet(wb, "Expression_matrix_3circ_9lin")

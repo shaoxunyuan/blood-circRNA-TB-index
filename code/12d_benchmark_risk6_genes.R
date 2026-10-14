@@ -9,11 +9,12 @@
 # Dependencies: R >= 4.4.3; data.table; limma; openxlsx.
 # ---------------------------------------------------------------------------
 # =============================================================================
-# build_S8_RISK6_genes.R — 文献评分基因(Sweeney3 / RISK6)的表达矩阵 + ATB 差异表达
+# build_benchmark_risk6_genes.R — 文献评分基因(Sweeney3 / RISK6)的表达矩阵 + ATB 差异表达
 #
 # 对两个已发表评分基因集分别生成两个 sheet:
 #   Sweeney3: GBP5, DUSP3 上调; KLF2 下调
-#   RISK6   : GBP2, FCGR1B, SERPING1 上调; TUBGCP6, TRMT2A, SDR39U1 下调
+#   RISK6 gene set: GBP2, FCGR1B, SERPING1 上调; TUBGCP6, TRMT2A, SDR39U1 下调
+#   (Penn-Nicholson 2020 gene set; score itself is study-specific RNA-seq expression contrast)
 #
 # 每个基因集输出:
 #   Sheet 1: {Signature}_genes_expression — 每样本基因 mRNA QN 表达 (log2(TPM+1))
@@ -156,7 +157,7 @@ for (sig in names(GENE_SETS)) {
 # =============================================================================
 cat("构建 Gene_direction_summary ...\n")
 
-# circRNA 三基因的 IDC DE (来自 S7 xlsx 的 circRNA QN 表达), 方向来源 = dirY4
+# circRNA 三基因的 IDC DE (来自 circRNA QN 表达), 方向来源 = dirY4
 s7 <- as.data.table(read_excel(LIN_VS_CIRC,
                                sheet = "Per_sample_data"))
 idc_circ <- s7[Cohort == "IDC"]

@@ -2,7 +2,7 @@
 # ---------------------------------------------------------------------------
 # Purpose:      Build the de-identified per-library sample dictionary and the
 #               cohort/group participant summary used by every downstream step.
-# Inputs:       data/metadata/{IDC,ITC,PVC}_metadata.tsv  (Supplementary Table S1)
+# Inputs:       data/metadata/{IDC,ITC,PVC}_metadata.tsv  (the de-identified cohort sample metadata)
 # Outputs:      metadata/sample_dictionary.tsv
 #               metadata/cohort_summary.tsv
 # Key params:   No filtering is applied here; inclusion flags are carried through
@@ -17,7 +17,7 @@ cohorts <- c("IDC", "ITC", "PVC")
 parts <- lapply(cohorts, function(coh) {
   f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
   paths_require(f, paste0(coh, " per-library sample annotation"),
-                "Supplementary Table S1 / NCBI GEO GSE348100")
+                "the de-identified cohort sample metadata / NCBI GEO GSE348100")
   d <- fread(f, na.strings = c("NA", "", "N.A"))
   d[, Cohort := coh]
   d

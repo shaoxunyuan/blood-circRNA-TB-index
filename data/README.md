@@ -7,12 +7,13 @@ No expression matrix is redistributed in this repository. This directory defines
 
 | Data | Source | Status |
 |------|--------|--------|
-| In-house raw sequencing (IDC, ITC) | — | **Not publicly available.** The original informed consent did not authorize public release of individual-level sequencing data. |
-| Processed expression matrices and associated sample metadata (IDC, ITC, PVC) | NCBI GEO **GSE348100** | Deposited; will be released upon publication |
+| In-house raw sequencing (IDC, ITC) | — | **Not publicly available.** The original informed consent did not authorize public release of individual-level sequencing data. Raw FASTQ are not deposited in GEO and are not planned for public release. |
+| Processed expression matrices and associated sample metadata (IDC, ITC, PVC) | NCBI GEO **GSE348100** | Deposited; currently private; planned public release upon manuscript acceptance (peer-review access via GEO reviewer token provided through the journal) |
 | Public pediatric validation cohort (raw sequencing) | NCBI BioProject **PRJNA588242** | Publicly available |
 
-> Processed expression matrices and associated sample metadata have been deposited in
-> NCBI GEO under accession GSE348100 and will be released upon publication.
+> Processed expression matrices and associated sample metadata from IDC and ITC have been
+> deposited in NCBI GEO under accession GSE348100. The GEO record is currently private and
+> is planned to be made publicly available upon manuscript acceptance.
 
 ## Layout
 
@@ -29,7 +30,7 @@ Each subdirectory has its own `README.md` stating:
 
 1. which files are required;
 2. where to obtain them;
-3. the corresponding GEO accession / Supplementary Table / public repository;
+3. the corresponding GEO accession / supporting table / public repository;
 4. the main column names;
 5. which scripts read the file.
 

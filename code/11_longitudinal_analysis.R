@@ -34,4 +34,4 @@ paired <- rbindlist(lapply(c("PTB", "EPTB"), function(g) {
 
 fwrite(paired, file.path(RESULTS, "longitudinal_analysis.tsv"), sep = "\t")
 message("Longitudinal comparisons: ", nrow(paired),
-        " (exploratory; complete-pair counts are reported in Supplementary Table S6B)")
+        " (exploratory; complete-pair counts are reported in the exploratory longitudinal results)")

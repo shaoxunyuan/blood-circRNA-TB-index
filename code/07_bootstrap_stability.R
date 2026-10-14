@@ -44,7 +44,7 @@ mat_f  <- file.path(DATA_QN, "IDC_QN_matrix.tsv")
 meta_f <- file.path(DATA_META, "IDC_metadata.tsv")
 paths_require(mat_f, "IDC QN log2(TPM+1) host-gene matrix (genes x samples)",
               "output of code/03_frozen_IDC_reference_normalization.R")
-paths_require(meta_f, "IDC per-library metadata", "Supplementary Table S1")
+paths_require(meta_f, "IDC per-library metadata", "the de-identified cohort sample metadata")
 
 mat  <- fread(mat_f)
 meta <- fread(meta_f)
@@ -128,7 +128,7 @@ for (b in seq_len(ITERS)) {
     freq <- c(freq, setNames(rep(1L, length(g$genes)), g$genes))
 
     ## In-bag / out-of-bag AUROC of the LOCKED panel (config/locked_panel.tsv),
-    ## which is what Figure 2G summarises; the per-iteration greedy panel is
+    ## which is what the bootstrap out-of-bag AUROC summary summarises; the per-iteration greedy panel is
     ## used only for the selection-frequency and panel-size summaries.
     score_of <- function(M) as.numeric(colSums(M * LOCK_W))
     in_bag[b] <- as.numeric(auc(roc(y, score_of(Xs[LOCK_G, , drop = FALSE]), quiet = TRUE, direction = "<")))
@@ -190,7 +190,7 @@ fwrite(freq_tab,  file.path(RESULTS, "bootstrap_selection_frequency.tsv"), sep =
 fwrite(auc_tab,   file.path(RESULTS, "bootstrap_auc_summary.tsv"), sep = "\t")
 fwrite(summary_tab, file.path(RESULTS, "bootstrap_summary.tsv"), sep = "\t")
 
-## ---- 5. QA against the manuscript (Figure 2E-2G) ---------------------------
+## ---- 5. QA against the manuscript (the bootstrap-stability summaries) ---------------------------
 EXP <- list(median_panel_size = 3, panel_size_le3_pct = 91.4, panel_size_3_pct = 51.8,
             SOD2 = 49.8, ASXL1 = 28.4, GOLPH3 = 17.8, PCNX2 = 5.0,
             median_in_bag = 0.952, median_OOB = 0.953)
@@ -214,5 +214,5 @@ for (g in c("SOD2", "ASXL1", "GOLPH3", "PCNX2")) {
 }
 chk("median in-bag AUROC", round(median(in_bag, na.rm = TRUE), 3), EXP$median_in_bag, 0.001)
 chk("median OOB AUROC", round(median(oob, na.rm = TRUE), 3), EXP$median_OOB, 0.001)
-if (length(fail)) stop("Bootstrap summary does not reproduce Figure 2E-2G:\n  ", paste(fail, collapse = "\n  "), call. = FALSE)
-message("QA: bootstrap summary reproduces Figure 2E-2G; consensus panel = ", paste(consensus, collapse = "+"))
+if (length(fail)) stop("Bootstrap summary does not reproduce the bootstrap-stability summaries:\n  ", paste(fail, collapse = "\n  "), call. = FALSE)
+message("QA: bootstrap summary reproduces the bootstrap-stability summaries; consensus panel = ", paste(consensus, collapse = "+"))

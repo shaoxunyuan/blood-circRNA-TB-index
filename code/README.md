@@ -46,9 +46,10 @@ location), and can be overridden with `TBCIRCRNA_ROOT`.
 
 ## Inputs
 
-Input matrices have been deposited in NCBI GEO (accession **GSE348100**) and will be
-released upon publication; they are not redistributed here. `data/` documents exactly
-where each file must be placed; see `data/README.md` and `docs/reproducibility.md`.
+Input matrices have been deposited in NCBI GEO (accession **GSE348100**). The GEO record
+is currently private and is planned to be made publicly available upon manuscript
+acceptance; they are not redistributed here. `data/` documents exactly where each file
+must be placed; see `data/README.md` and `docs/reproducibility.md`.
 
 When an input is missing, scripts stop with an explicit message:
 

@@ -39,7 +39,7 @@ stopifnot(sum(is.na(s$TB_index)) == 0)
 ## ---- 3. AUPRC: trapezoidal integration of the PR curve ---------------------
 ## AUPRC: trapezoidal integration of the precision-recall curve after ranking
 ## samples by decreasing TB-index (manuscript Methods). This is the original
-## implementation used for Table 2: the (recall = 0, precision = 1) anchor is
+## implementation used for the locked diagnostic summary: the (recall = 0, precision = 1) anchor is
 ## prepended, points at which recall does not increase are dropped, and the
 ## remaining points are integrated by the trapezoidal rule.
 auprc <- function(labels, scores) {
@@ -98,7 +98,7 @@ compute <- function(coh, case, ctrl, baseline_only = FALSE) {
 ##
 ## PVC diagnostic comparisons use BASELINE libraries only
 ## (Included_in_baseline_diagnostic_analysis == "Yes"), i.e. PTB n = 8 and
-## EPTB n = 8 against HC n = 14, as reported in Table 2. Later PVC time points
+## EPTB n = 8 against HC n = 14, as used for the locked diagnostic summary. Later PVC time points
 ## are reserved for the longitudinal analysis (script 11).
 BASE <- list(c("IDC", "APTB", "HC"), c("IDC", "APTB", "LTBI"), c("IDC", "APTB", "PNEU"),
              c("IDC", "APTB", "LC"), c("ITC", "APTB", "HC"), c("ITC", "APTB", "LC"),
@@ -140,7 +140,7 @@ for (g in c("PTB", "EPTB")) {
 fwrite(tf,  file.path(RESULTS, "diagnostic_performance.tsv"), sep = "\t")
 fwrite(ops, file.path(RESULTS, "diagnostic_thresholds.tsv"),  sep = "\t")
 
-## ---- 6. QA against the manuscript (Supplementary Tables S3/S6, Table 2) ----
+## ---- 6. QA against the manuscript (locked diagnostic-performance outputs) ----
 EXPECTED <- data.table(
   Comparison = c("APTB vs HC", "APTB vs LTBI", "APTB vs PNEU", "APTB vs LC",
                  "APTB vs pooled non-APTB", "APTB vs HC", "APTB vs LC",
@@ -168,8 +168,8 @@ for (i in seq_len(nrow(EXPECTED))) {
   if (!is.na(e$HiSens_spec) && abs(oh$Specificity - e$HiSens_spec) > TOL) fail <- c(fail, sprintf("%s %s HiSens spec", e$Cohort, e$Comparison))
 }
 if (length(fail)) {
-  stop("Table 2 / Supplementary Table QA failed for:\n  ", paste(fail, collapse = "\n  "),
+  stop("the diagnostic performance summary / supporting table QA failed for:\n  ", paste(fail, collapse = "\n  "),
        call. = FALSE)
 }
 message("QA: ", nrow(tf), " comparisons and ", nrow(ops),
-        " threshold rows reproduce Table 2 / Supplementary Tables S3 and S6")
+        " threshold rows reproduce the locked differential-expression and diagnostic outputs")

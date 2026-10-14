@@ -2,18 +2,18 @@
 # ---------------------------------------------------------------------------
 # Purpose:      Recompute the benchmark signature scores used in the manuscript.
 # Inputs:       Benchmark expression matrix (circRNA and linear-RNA QN values).
-# Outputs:      Per-sample benchmark scores (Supplementary Table S7).
+# Outputs:      Per-sample benchmark scores (the literature-benchmark results).
 # Key params:   Scores computed as signed weighted sums of QN expression values.
 # Dependencies: R >= 4.4.3; data.table; openxlsx.
 # ---------------------------------------------------------------------------
 # =============================================================================
-# build_S8_TBindex_scores.R — 把 S8 的 Sweeney3/RISK6 评分改为 TB-index 式加权和
+# build_benchmark_tbindex_scores.R — 把 benchmark 的 Sweeney3/RISK6 评分改为 TB-index 式加权和
 #
 # 需求（2026-08-08）：Panel C 中 Sweeney3/RISK6 不再用文献公式，改用 TB-index
 #   的公式 = Σ(权重 × linearRNA 表达)，权重 = 由 IDC 数据 APTB vs non-APTB 的
 #   limma 方向 (sign logFC) 决定，完全弃用文献方向。circRNA TB-index 不变。
 #
-# 数据来源: S8.xlsx 的 Expression_matrix_3circ_9lin（184 样本，12 基因 QN 表达）
+# 数据来源: benchmark workbook 的 Expression_matrix_3circ_9lin（184 样本，12 基因 QN 表达）
 # 输出: 更新 per_sample_scores sheet —— 替换 Sweeney3/RISK6 两列为新值，
 #       并补充 9 个 linearRNA 基因表达列（自包含：表达 → 评分）
 # =============================================================================

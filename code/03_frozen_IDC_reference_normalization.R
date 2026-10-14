@@ -49,7 +49,7 @@ read_common <- function(coh) {
 ## ---- 2. Sample-ID alignment against the metadata --------------------------
 samples_of <- function(coh) {
   f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
-  paths_require(f, paste0(coh, " metadata"), "Supplementary Table S1")
+  paths_require(f, paste0(coh, " metadata"), "the de-identified cohort sample metadata")
   m <- fread(f)
   stopifnot(!anyDuplicated(m$Sample_ID))
   m

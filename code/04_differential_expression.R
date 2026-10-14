@@ -20,7 +20,7 @@ source("code/_paths.R")
 
 EXPECTED_GENES <- 2754L
 ## Up/down counts of the prespecified screen, as reported in the manuscript
-## (Supplementary Table S3A). Checked after the fit; a mismatch stops the run.
+## (the differential-expression screen counts). Checked after the fit; a mismatch stops the run.
 EXPECTED_DE_COUNTS <- list(
   "APTB vs HC"   = c(up = 117L, down = 146L),
   "APTB vs LTBI" = c(up = 141L, down = 151L),
@@ -34,7 +34,7 @@ mat_f  <- file.path(DATA_QN, "IDC_QN_matrix.tsv")
 meta_f <- file.path(DATA_META, "IDC_metadata.tsv")
 paths_require(mat_f, "IDC QN log2(TPM+1) host-gene matrix (genes x samples)",
               "output of code/03_frozen_IDC_reference_normalization.R")
-paths_require(meta_f, "IDC per-library metadata", "Supplementary Table S1")
+paths_require(meta_f, "IDC per-library metadata", "the de-identified cohort sample metadata")
 
 mat  <- fread(mat_f)
 meta <- fread(meta_f)
@@ -107,7 +107,7 @@ for (cmp in names(EXPECTED_DE_COUNTS)) {
     stop(sprintf("DE count mismatch for %s: observed up=%d down=%d, expected up=%d down=%d",
                  cmp, n_up, n_down, exp[["up"]], exp[["down"]]), call. = FALSE)
   }
-  message(sprintf("  %-14s screened up=%3d down=%3d  (matches Supplementary Table S3A)",
+  message(sprintf("  %-14s screened up=%3d down=%3d  (matches the differential-expression screen counts)",
                   cmp, n_up, n_down))
 }
 message("QA: ", EXPECTED_GENES, " genes x ", length(CONTRASTS),

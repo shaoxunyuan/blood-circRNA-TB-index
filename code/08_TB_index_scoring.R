@@ -35,7 +35,7 @@ scores <- rbindlist(lapply(c("IDC", "ITC", "PVC"), function(coh) {
   meta_f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
   paths_require(mat_f,  paste0(coh, " QN log2(TPM+1) host-gene matrix (genes x samples)"),
                 "output of code/03_frozen_IDC_reference_normalization.R")
-  paths_require(meta_f, paste0(coh, " per-library metadata"), "Supplementary Table S1")
+  paths_require(meta_f, paste0(coh, " per-library metadata"), "the de-identified cohort sample metadata")
 
   mat  <- fread(mat_f)
   meta <- fread(meta_f)

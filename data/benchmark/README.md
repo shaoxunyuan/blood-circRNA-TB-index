@@ -7,18 +7,20 @@
 | `circ_qn_{IDC,ITC,PVC}.rds` | circRNA QN matrices used for the benchmark |
 | `linear_qn_{IDC,ITC,PVC}.rds` | Linear-RNA QN matrices (13,989 genes) used for Sweeney3 / RISK6 |
 | `{IDC,ITC,PVC}_TBindex_per_sample.csv` | Per-sample TB-index used in the benchmark |
-| `benchmark_literature.xlsx` | Curated literature comparison (**Supplementary Table S7A**) |
-| `SF6_Sweeney3_RISK6_per_sample.csv` | Per-sample TB-index and Sweeney3 / RISK6 scores used for the paired DeLong comparisons (Supplementary Table S7) |
+| `benchmark_literature.xlsx` | Curated literature comparison for the signature benchmark |
+| `benchmark_Sweeney3_RISK6_per_sample.csv` | Per-sample TB-index and Sweeney3 / RISK6 scores for paired DeLong comparisons |
 
 **Where to obtain it**
 
-- circRNA matrices: NCBI GEO **GSE348100**.
+- circRNA matrices: NCBI GEO **GSE348100** (currently private; planned public release
+  upon manuscript acceptance).
 - Linear-RNA matrices: derived from the same RNA-seq quantification; raw sequencing data
   for the public validation cohort are publicly available from NCBI BioProject
-  **PRJNA588242**.
-- Literature comparison: **Supplementary Table S7A** of the manuscript.
-- Per-sample benchmark scores for the DeLong comparisons
-  (`SF6_Sweeney3_RISK6_per_sample.csv`): **Supplementary Table S7** / NCBI GEO
+  **PRJNA588242**. In-house raw sequencing data are not publicly available.
+- Literature comparison workbook: provide as `benchmark_literature.xlsx` when re-running
+  the literature-comparison step.
+- Per-sample benchmark scores (`benchmark_Sweeney3_RISK6_per_sample.csv`): shipped in this
+  directory for the DeLong step. Full expression matrices remain in NCBI GEO
   **GSE348100**.
 
 **Main columns**
@@ -38,6 +40,16 @@ Benchmarking is performed using the scripts
 
 run in this order. Paired ROC comparisons are then performed using
 
-- `code/13_DeLong_comparisons.R` (reads `SF6_Sweeney3_RISK6_per_sample.csv`)
+- `code/13_DeLong_comparisons.R` (reads `benchmark_Sweeney3_RISK6_per_sample.csv`)
 
 The reported benchmark results are shipped as `results/DeLong_comparisons.tsv`.
+
+
+## RISK6 note
+
+The RISK6 score in this package follows the published RNA-seq/microarray formula
+(Penn-Nicholson et al., 2020):
+`GM(GBP2, FCGR1B, SERPING1) − GM(TUBGCP6, TRMT2A, SDR39U1)`,
+with geometric means evaluated on the linear (TPM+1) scale from frozen IDC-reference
+QN-normalized log2(TPM+1) values. It is **not** the original qRT-PCR RISK6
+pair-ratio/lookup-table algorithm. The internal column name remains `RISK6`.

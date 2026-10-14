@@ -42,7 +42,7 @@ N_LIB <- c(IDC = 109L, ITC = 35L, PVC = 81L)   # locked final cohort sizes
 read_final_ids <- function(coh) {
   f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
   paths_require(f, paste0(coh, " final per-library metadata (Sample_ID)"),
-                "Supplementary Table S1; see data/metadata/README.md")
+                "the de-identified cohort sample metadata; see data/metadata/README.md")
   m <- fread(f)
   if (!"Sample_ID" %in% names(m)) {
     stop("Missing column 'Sample_ID' in ", basename(f), call. = FALSE)
@@ -206,7 +206,7 @@ if (nrow(summary_tab) != 9L) fail <- c(fail, "expected 9 gene x cohort rows")
 if (length(fail)) stop("BSJ QA failed:\n  ", paste(fail, collapse = "\n  "), call. = FALSE)
 
 message("QA: all-three-cohort BSJs ", paste(sprintf("%s=%d", GENES, EXPECTED_ALL3), collapse = " "),
-        "; largest-shared contributions and shared totals match Figure 4B")
+        "; largest-shared contributions and shared totals match the BSJ contribution summaries")
 print(summary_tab[, .(Gene, Cohort, All_three_cohort_BSJ_n, Shared_BSJ_n,
                       Largest_shared_contribution_pct, Other_shared_contribution_pct,
                       Cohort_specific_contribution_pct, Shared_total_contribution_pct)])

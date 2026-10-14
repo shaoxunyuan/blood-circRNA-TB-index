@@ -32,7 +32,7 @@ MIN_DETECT_SAMPLES <- 3L
 read_meta <- function(coh) {
   f <- file.path(DATA_META, paste0(coh, "_metadata.tsv"))
   paths_require(f, paste0(coh, " per-library metadata (Sample_ID, Group)"),
-                "Supplementary Table S1; see data/metadata/README.md")
+                "the de-identified cohort sample metadata; see data/metadata/README.md")
   m <- fread(f)
   if (anyDuplicated(m$Sample_ID)) stop("Duplicate Sample_ID in ", coh, " metadata", call. = FALSE)
   m

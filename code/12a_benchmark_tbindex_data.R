@@ -1,20 +1,22 @@
 #!/usr/bin/env Rscript
 # ---------------------------------------------------------------------------
-# Purpose:      Assemble per-sample TB-index and Sweeney3 / RISK6 benchmark scores.
+# Purpose:      Assemble per-sample TB-index and Sweeney3 / RISK6 scores.
 # Inputs:       circRNA TB-index per sample; linear-RNA QN matrices; sample metadata.
 # Outputs:      Benchmark workbook sheets underlying results/DeLong_comparisons.tsv
-#               (Supplementary Table S7).
-# Key params:   Locked panel SOD2 (+1) / GOLPH3 (-1) / PCNX2 (-1); published Sweeney3
-#               and RISK6 formulas applied without re-estimation.
+#               (the literature-benchmark results).
+# Key params:   Locked panel SOD2 (+1) / GOLPH3 (-1) / PCNX2 (-1); published Sweeney3;
+#               RISK6 = GM(GBP2,FCGR1B,SERPING1) - GM(TUBGCP6,TRMT2A,SDR39U1)
+#               (Penn-Nicholson RNA-seq/microarray geometric-mean formulation; column RISK6).
+# Note:         QN log2(TPM+1) with GM on linear (TPM+1) scale. Not original qRT-PCR RISK6.
 # Dependencies: R >= 4.4.3; data.table; openxlsx.
 # ---------------------------------------------------------------------------
 # =============================================================================
-# build_S8_Benchmark_data.R — 整合 circRNA TB-index + Sweeney3/RISK6 到 S8.xlsx
+# build_benchmark_tbindex_data.R — 整合 circRNA TB-index + Sweeney3/RISK6 到 benchmark workbook
 #
 # 数据来源:
 #   circRNA TB-index: data/benchmark/{IDC,ITC,PVC}_TBindex_per_sample.csv
 #   Sweeney3/RISK6:   data/benchmark/linear_qn_*.rds (linear QN)
-#   Sample metadata:  data/metadata/{IDC,ITC,PVC}_metadata.tsv  (Supplementary Table S1)
+#   Sample metadata:  data/metadata/{IDC,ITC,PVC}_metadata.tsv  (the de-identified cohort sample metadata)
 #
 # 输出:
 #   在 Figure_benchmark_TBindex.xlsx 写入 "per_sample_scores"
@@ -46,8 +48,8 @@ LIN_PVC <- file.path(DATA_BENCH, "linear_qn_PVC.rds")
 
 
 cat("================================================================\n")
-cat(" build_S8_Benchmark_data.R\n")
-cat(" 整合 TBindex + Sweeney3/RISK6 → S8 per_sample_scores\n")
+cat(" build_benchmark_tbindex_data.R\n")
+cat(" 整合 TBindex + Sweeney3/RISK6 → benchmark per_sample_scores\n")
 cat("================================================================\n")
 
 # ---- 1. circRNA TB-index ----
@@ -71,9 +73,13 @@ circ_tb <- rbindlist(list(
 ), fill = TRUE)
 cat(sprintf("  TBindex: %d 样本\n", nrow(circ_tb)))
 
-# ---- 2. Sweeney3 / RISK6 (linear QN) ----
+# ---- 2. Sweeney3 / RISK6 (linear QN; Penn-Nicholson RNA-seq/microarray GM formula) ----
+# RISK6 = GM(GBP2,FCGR1B,SERPING1) - GM(TUBGCP6,TRMT2A,SDR39U1);
+# GM on linear (TPM+1) scale from QN log2(TPM+1) = 2^mean(log2). Column name remains RISK6.
+
 cat("\n[2/4] 计算 Sweeney3 / RISK6 ...\n")
 load_qn <- function(path) { x <- readRDS(path); rownames(x$logTPM_QN) <- x$genes; x$logTPM_QN }
+gm3_log2 <- function(a, b, c) 2^((as.numeric(a) + as.numeric(b) + as.numeric(c)) / 3)
 score_from_mat <- function(mat, samples) {
   m <- match(sub("^LTBI_", "LTB_", samples), colnames(mat))
   ok <- !is.na(m)
@@ -84,9 +90,9 @@ score_from_mat <- function(mat, samples) {
     KLF2  = as.numeric(mat["KLF2",  m[ok]]),
     # Sweeney3 = (GBP5 + DUSP3)/2 - KLF2
     Sweeney3 = as.numeric((mat["GBP5", m[ok]] + mat["DUSP3", m[ok]])/2 - mat["KLF2", m[ok]]),
-    RISK6 = as.numeric(((mat["GBP2", m[ok]] - mat["SDR39U1", m[ok]]) +
-      (mat["FCGR1B", m[ok]] - mat["TUBGCP6", m[ok]]) +
-      (mat["SERPING1", m[ok]] - mat["TRMT2A", m[ok]]))/3))
+    RISK6 = as.numeric(
+      gm3_log2(mat["GBP2", m[ok]], mat["FCGR1B", m[ok]], mat["SERPING1", m[ok]]) -
+      gm3_log2(mat["TUBGCP6", m[ok]], mat["TRMT2A", m[ok]], mat["SDR39U1", m[ok]])))
 }
 qn_list <- list(
   IDC = load_qn(LIN_IDC),
@@ -108,7 +114,7 @@ clin <- rbindlist(lapply(seq_along(c("IDC", "ITC", "PVC")), function(i) {
   coh <- c("IDC", "ITC", "PVC")[i]
   f <- META_FILES[i]
   paths_require(f, paste0(coh, " per-library metadata"),
-                "Supplementary Table S1; see data/metadata/README.md")
+                "the de-identified cohort sample metadata; see data/metadata/README.md")
   d <- fread(f)
   d <- d[!is.na(Group) & Group != ""]
   data.table(BioSample = as.character(d$Sample_ID), Cohort = coh,
@@ -118,7 +124,7 @@ clin <- rbindlist(lapply(seq_along(c("IDC", "ITC", "PVC")), function(i) {
 cat(sprintf("  Clinical: %d 样本\n", nrow(clin)))
 
 # ---- 4. 合并 → per_sample_scores ----
-cat("\n[4/4] 合并写入 S8.xlsx ...\n")
+cat("\n[4/4] 合并写入 benchmark workbook ...\n")
 ps <- merge(circ_tb, sc_all, by = c("BioSample", "Cohort"), all.x = TRUE)
 ps <- merge(ps, clin, by = c("BioSample", "Cohort"), all.x = TRUE)
 ps <- ps[!is.na(Group) & !is.na(Sweeney3) & !is.na(RISK6)]
@@ -132,7 +138,7 @@ addWorksheet(wb, "per_sample_scores")
 writeData(wb, "per_sample_scores", ps)
 setColWidths(wb, "per_sample_scores", cols = 1:ncol(ps), widths = "auto")
 writeComment(wb, "per_sample_scores", col = 1, row = 1,
-  comment = createComment("Input data for the benchmark table (Supplementary Table S7). Sources: circRNA TB-index and linear-RNA QN scores."))
+  comment = createComment("Input data for the benchmark table (the literature-benchmark results). Sources: circRNA TB-index and linear-RNA QN scores."))
 # 放 README 后
 nms <- names(wb); rd <- which(nms == "README")
 ord <- c(rd, which(nms == "per_sample_scores"), setdiff(seq_along(nms), c(rd, which(nms == "per_sample_scores"))))

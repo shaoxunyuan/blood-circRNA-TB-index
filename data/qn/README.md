@@ -11,9 +11,10 @@
 **Where to obtain it**
 
 - Processed expression matrices and associated sample metadata have been deposited in
-  NCBI GEO under accession **GSE348100** and will be released upon publication.
-- Equivalent content is also published as **Supplementary Table S2** of the manuscript
-  (sheets `Before_QN`, `After_QN`, `QN_reference`).
+  NCBI GEO under accession **GSE348100**. The GEO record is currently private and is
+  planned to be made publicly available upon manuscript acceptance.
+- Place the matrices in this directory using the filenames listed above before re-running
+  the scripts.
 
 **Matrix orientation**
 

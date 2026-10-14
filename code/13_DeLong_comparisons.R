@@ -2,9 +2,9 @@
 # ---------------------------------------------------------------------------
 # Purpose:      Paired DeLong comparisons between the circRNA TB-index and the
 #               Sweeney3 / RISK6 benchmark signatures.
-# Inputs:       data/benchmark/SF6_Sweeney3_RISK6_per_sample.csv
+# Inputs:       data/benchmark/benchmark_Sweeney3_RISK6_per_sample.csv
 #                 per-sample TB-index and benchmark signature scores
-#                 (Supplementary Table S7 / NCBI GEO GSE348100)
+#                 (the literature-benchmark results / NCBI GEO GSE348100)
 # Outputs:      results/DeLong_comparisons.tsv
 # Key parameters:
 #               test        pROC::roc.test, paired design (same participants)
@@ -19,9 +19,9 @@
 suppressPackageStartupMessages({library(data.table); library(pROC)})
 source("code/_paths.R")
 
-score_f <- file.path(DATA_BENCH, "SF6_Sweeney3_RISK6_per_sample.csv")
+score_f <- file.path(DATA_BENCH, "benchmark_Sweeney3_RISK6_per_sample.csv")
 paths_require(score_f, "per-sample benchmark scores (TB-index, Sweeney3, RISK6)",
-              "Supplementary Table S7 / NCBI GEO GSE348100")
+              "the literature-benchmark results / NCBI GEO GSE348100")
 sc <- fread(score_f)
 
 CONTRASTS <- list(

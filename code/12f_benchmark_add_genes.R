@@ -8,16 +8,16 @@
 # Dependencies: R >= 4.4.3; data.table; openxlsx.
 # ---------------------------------------------------------------------------
 # =============================================================================
-# build_S8_add_genes.R — 在 S8.xlsx 的 per_sample_scores 中补充 Sweeney3 三基因
+# build_benchmark_add_genes.R — 在 benchmark workbook 的 per_sample_scores 中补充 Sweeney3 三基因
 #   (GBP5 / DUSP3 / KLF2) 的 mRNA 表达列, 与已计算的 Sweeney3 score 同表存放
 #
 # 说明:
-#   Sweeney3 score 已由 build_S8_Benchmark_data.R 计算并存在于 per_sample_scores;
+#   Sweeney3 score 已由 build_benchmark_tbindex_data.R 计算并存在于 per_sample_scores;
 #   本脚本仅把三个基因的表达列补进去, 使该表自包含 (基因表达 → 计算得分)。
 #   基因表达来自 linearRNA QN 矩阵 (log2(TPM+1) QN 归一化)。
 #
 # Input: linear-RNA QN matrices at data/benchmark/linear_qn_{IDC,ITC,PVC}.rds
-#   (build_S8_Benchmark_data.R 中的 results/流程linearRNA_v1 路径已失效)
+#   (build_benchmark_tbindex_data.R 中的 results/流程linearRNA_v1 路径已失效)
 # =============================================================================
 suppressPackageStartupMessages({library(data.table); library(openxlsx); library(readxl)})
 
@@ -84,7 +84,7 @@ addWorksheet(wb, "per_sample_scores")
 writeData(wb, "per_sample_scores", ps2)
 setColWidths(wb, "per_sample_scores", cols = 1:ncol(ps2), widths = "auto")
 writeComment(wb, "per_sample_scores", col = 1, row = 1,
-  comment = createComment("Per-sample benchmark scores (Supplementary Table S7). GBP5/DUSP3/KLF2 = linear-RNA QN log2(TPM+1); Sweeney3 = (GBP5+DUSP3)/2 - KLF2; RISK6 = 6-gene score."))
+  comment = createComment("Per-sample benchmark scores (the literature-benchmark results). GBP5/DUSP3/KLF2 = linear-RNA QN log2(TPM+1); Sweeney3 = (GBP5+DUSP3)/2 - KLF2; RISK6 = GM(GBP2,FCGR1B,SERPING1)-GM(TUBGCP6,TRMT2A,SDR39U1) (not original qRT-PCR RISK6)."))
 nms <- names(wb); rd <- which(nms == "README")
 ord <- c(rd, which(nms == "per_sample_scores"), setdiff(seq_along(nms), c(rd, which(nms == "per_sample_scores"))))
 worksheetOrder(wb) <- ord

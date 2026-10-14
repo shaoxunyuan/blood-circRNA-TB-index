@@ -27,7 +27,7 @@ s <- fread(s_f)
 # Sex/Age are not carried in the score table; join the de-identified metadata.
 meta_f <- file.path(ROOT, "metadata", "sample_dictionary.tsv")
 paths_require(meta_f, "de-identified sample dictionary (Sex, Age)",
-              "step 01 output; Supplementary Table S1")
+              "step 01 output; the de-identified cohort sample metadata")
 meta <- fread(meta_f)
 s <- merge(s, meta[, .(Sample_ID, Sex, Age)], by = "Sample_ID", all.x = TRUE, sort = FALSE)
 s[, Sex01 := ifelse(Sex == "Male", 1L, ifelse(Sex == "Female", 0L, NA_integer_))]
