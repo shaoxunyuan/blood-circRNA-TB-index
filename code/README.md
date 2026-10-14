@@ -15,7 +15,7 @@ Dependencies: R version and packages
 
 | Script | Step | Role |
 |--------|------|------|
-| `_paths.R` | — | Resolves repository-relative paths (`ROOT`, `CONFIG`, `DATA*`, `RESULTS`, …) and provides `paths_require()` for missing-input errors. Sourced by every script. No absolute paths. |
+| `_paths.R` | — | Resolves repository-relative paths (`ROOT`, `CONFIG`, `DATA*`, `RESULTS`, …) and provides `paths_require()` for missing-input errors. Sourced by every script. |
 | `palette_manuscript.R` | — | Single source of truth for the locked final colours and shapes (group / cohort / feature / marker / direction). |
 | `01_prepare_metadata.R` | 1 | De-identified sample dictionary and cohort/group summary |
 | `02_build_common_feature_matrix.R` | 2 | Common feature space (2,754 circRNA host genes) |
@@ -48,8 +48,8 @@ location), and can be overridden with `TBCIRCRNA_ROOT`.
 
 Input matrices have been deposited in NCBI GEO (accession **GSE348100**). The GEO record
 is currently private and is planned to be made publicly available upon manuscript
-acceptance; they are not redistributed here. `data/` documents exactly where each file
-must be placed; see `data/README.md` and `docs/reproducibility.md`.
+acceptance. `data/` documents where each file must be placed; see `data/README.md` and
+`docs/reproducibility.md`.
 
 When an input is missing, scripts stop with an explicit message:
 

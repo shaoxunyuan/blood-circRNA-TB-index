@@ -6,8 +6,8 @@ relative to the repository root and every input is declared in
 
 Internal column/variable name `RISK6` stores
 `GM(GBP2, FCGR1B, SERPING1) − GM(TUBGCP6, TRMT2A, SDR39U1)`
-(QN log2(TPM+1); GM on linear TPM+1 scale). It is **not** the original qRT-PCR RISK6
-lookup-table algorithm.
+(QN log2(TPM+1); GM on linear TPM+1 scale; Penn-Nicholson et al., 2020
+RNA-seq/microarray formula).
 
 | Script | Input | Output | Next |
 |--------|-------|--------|------|
@@ -21,12 +21,10 @@ lookup-table algorithm.
 
 ## Inputs and dependencies
 
-Every benchmark input is either shipped in `results/` or documented in
-`data/*/README.md`; no undeclared input is read. `12a` reads the same per-cohort metadata
-TSVs that steps 2–11 use, so no second metadata file is needed.
+Every benchmark input is listed in `results/` or documented in `data/*/README.md`.
+`12a` reads the same per-cohort metadata TSVs that steps 2–11 use.
 
 ## Metadata fields used by the benchmark
 
 `Sample_ID` (matches the TB-index per-sample tables), `Group` (contrast definition) and
-`TimePoint` (PVC baseline selection). These come from the same three TSVs that steps 2–11
-use; no second metadata file is maintained.
+`TimePoint` (PVC baseline selection), from the same three TSVs that steps 2–11 use.

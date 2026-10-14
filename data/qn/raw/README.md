@@ -1,9 +1,7 @@
 # data/qn/raw/
 
-> **Note on the directory name.** Here, "raw" refers to pre-normalization processed
-> matrices used by the analysis pipeline, not raw sequencing reads. The files in this
-> directory are processed gene-level matrices used as analysis inputs; they are not raw
-> sequencing files.
+> **Note on the directory name.** Here, "raw" means pre-normalization gene-level
+> processed matrices used as analysis inputs (circular host-gene TPM tables).
 
 **Required input files**
 

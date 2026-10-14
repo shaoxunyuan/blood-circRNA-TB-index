@@ -17,8 +17,7 @@
 # Dependencies: R >= 4.4.3; data.table
 #
 # Input format contract (see docs/reproducibility.md): script 03 consumes the
-# common-gene matrices written by script 02 and never re-reads the raw
-# matrices, so the wide-matrix format is assumed in exactly one place.
+# common-gene matrices written by script 02 in wide format.
 # ---------------------------------------------------------------------------
 suppressPackageStartupMessages(library(data.table))
 source("code/_paths.R")
@@ -66,7 +65,7 @@ for (coh in COHORTS) {
          " not in metadata, ", length(extra_in_meta), " extra in metadata.",
          call. = FALSE)
   }
-  ## Reorder explicitly onto the metadata order; never assume it already matches.
+  ## Reorder explicitly onto the metadata order.
   tpm[[coh]] <- X[, meta[[coh]]$Sample_ID, drop = FALSE]
   message(sprintf("  %s: %d genes x %d samples", coh, nrow(tpm[[coh]]), ncol(tpm[[coh]])))
 }

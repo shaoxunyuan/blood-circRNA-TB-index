@@ -150,7 +150,7 @@ for (b in seq_len(ITERS)) {
 sel_tab <- rbindlist(rows, fill = TRUE)
 ## Count selections per gene. Note: character indexing into a named vector with
 ## duplicated names returns only the first match, so the counts are built with
-## table() rather than freq[Gene].
+## Named lookup via table().
 freq_tab <- as.data.table(table(names(freq)))
 setnames(freq_tab, c("Gene", "n_selected"))
 freq_tab[, n_selected := as.integer(n_selected)]
@@ -204,7 +204,7 @@ chk("panel size 3 (%)", round(100 * mean(sizes == 3), 1), EXP$panel_size_3_pct, 
 ## Selection frequencies are checked to within one bootstrap selection (0.2 pp at
 ## 500 iterations). The greedy step breaks exact AUROC ties by candidate order, so
 ## a one-selection difference is expected; the observed difference is reported by
-## the message below rather than absorbed silently.
+## surface mismatches via the message below.
 for (g in c("SOD2", "ASXL1", "GOLPH3", "PCNX2")) {
   got <- freq_tab[Gene == g, pct][1]
   chk(paste("freq", g), got, EXP[[g]], 0.25)

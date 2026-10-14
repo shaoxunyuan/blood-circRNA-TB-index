@@ -11,8 +11,7 @@
 #               screen         |log2FC| > 0.5 and nominal P < 0.05
 #               multiplicity   Benjamini-Hochberg applied within each contrast
 #                              across the 2,754 genes (one family per contrast);
-#                              retained as secondary sensitivity information and
-#                              it does not redefine the screen
+#                              retained as secondary sensitivity information
 # Dependencies: R >= 4.4.3; limma; data.table
 # ---------------------------------------------------------------------------
 suppressPackageStartupMessages({library(data.table); library(limma)})
@@ -47,7 +46,7 @@ rownames(expr_matrix) <- genes
 stopifnot(ncol(expr_matrix) == length(sample_cols))
 stopifnot(nrow(expr_matrix) == EXPECTED_GENES)
 
-## ---- 2. Sample-ID alignment (explicit; never assumed) ---------------------
+## ---- 2. Sample-ID alignment ----------------------------------------------
 if (anyDuplicated(meta$Sample_ID)) stop("Duplicate Sample_ID in IDC metadata")
 if (anyDuplicated(colnames(expr_matrix))) stop("Duplicate sample columns in the matrix")
 missing_in_expr <- setdiff(meta$Sample_ID, colnames(expr_matrix))

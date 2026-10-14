@@ -113,11 +113,10 @@ execution order; every script sources `code/_paths.R`.
 - **Input:** `data/benchmark/{circ,linear}_qn_*.rds`, `data/benchmark/{cohort}_TBindex_per_sample.csv`, `data/metadata/{cohort}_metadata.tsv`
 - **Output:** per-sample benchmark scores and the literature comparison (the curated literature-comparison table)
 - **Purpose:** Apply the published Sweeney3 formula and the published **RISK6**
-  RNA-seq/microarray geometric-mean formula to frozen IDC-reference QN-normalized linear-RNA values without
-  re-estimating coefficients or directions. RISK6 =
+  RNA-seq/microarray geometric-mean formula to frozen IDC-reference QN-normalized
+  linear-RNA values, using the published coefficients and directions. RISK6 =
   `GM(GBP2, FCGR1B, SERPING1) − GM(TUBGCP6, TRMT2A, SDR39U1)` (geometric means on the linear
-  TPM+1 scale from QN log2(TPM+1); Penn-Nicholson et al., 2020). This is **not** the original
-  qRT-PCR RISK6 pair-ratio/lookup-table algorithm.
+  TPM+1 scale from QN log2(TPM+1); Penn-Nicholson et al., 2020 RNA-seq/microarray formula).
 - **Manuscript:** Methods — Benchmarking against published signatures
 
 ### Step 13 — Paired DeLong comparisons
@@ -134,7 +133,7 @@ execution order; every script sources `code/_paths.R`.
 - **Script:** `code/14_BSJ_refinement.R`
 - **Input:** `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv` (BSJ abundance and annotation for the three panel genes; long format with `gene_name`, `BSJ_ID`, `BioSample`, `TPM`) **+** `data/metadata/{IDC,ITC,PVC}_metadata.tsv` (final cohort membership). The script restricts each BSJ table internally to the final `Sample_ID` list of the cohort metadata, reports the libraries it drops, and expects the final cohort sizes IDC 109 / ITC 35 / PVC 81. `data/bsj/README.md` documents how the input tables are built.
 - **Output:** `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv`
-- **Purpose:** Cross-cohort BSJ overlap and contribution analysis for the locked genes. A BSJ is matched across cohorts by its genomic junction (`BSJ_ID` = chromosome|donor|acceptor|strand), never by row index. For each gene and cohort the analysis reports the all-three-cohort count, the shared and cohort-specific junction counts, and the contribution of the largest shared BSJ, of the other shared BSJs and of the cohort-specific BSJs to the cohort-pooled circular TPM of that gene.
+- **Purpose:** Cross-cohort BSJ overlap and contribution analysis for the locked genes. A BSJ is matched across cohorts by its genomic junction (`BSJ_ID` = chromosome|donor|acceptor|strand). For each gene and cohort the analysis reports the all-three-cohort count, the shared and cohort-specific junction counts, and the contribution of the largest shared BSJ, of the other shared BSJs and of the cohort-specific BSJs to the cohort-pooled circular TPM of that gene.
 - **Manuscript:** Methods — BSJ-level refinement
 
 **BSJ result files**
@@ -167,7 +166,7 @@ execution order; every script sources `code/_paths.R`.
   detectability-filtered gene sets of IDC, ITC and PVC (cohort-level retention:
   3,535 / 3,058 / 4,457).
 - **Normalization:** log2(TPM + 1) mapped onto a frozen IDC-reference rank-mean
-  distribution; no validation-cohort label, group or outcome enters the normalization.
+  distribution fitted on the IDC only.
 - **Discovery screen:** |log2FC| > 0.5 and nominal *P* < 0.05, four-comparator
   intersection, direction concordance. BH-adjusted *P* values are secondary multiplicity
   sensitivity information.
@@ -176,8 +175,8 @@ execution order; every script sources `code/_paths.R`.
 - **Locked thresholds** (IDC APTB vs HC, applied unchanged elsewhere): Youden = 1.407;
   high-sensitivity (10th percentile of the IDC APTB TB-index) = 0.261.
 
-## Working from the shipped files only
+## Missing inputs
 
-`results/` already contains the final derived values for every step. Each script stops
-with an explicit `Required input file not found` message naming the file and its source
-when an input is missing.
+Each script stops with an explicit `Required input file not found` message naming the
+file and its source when an input is missing. Final derived values for every step are
+also present under `results/`.

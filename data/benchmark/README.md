@@ -51,5 +51,5 @@ The RISK6 score in this package follows the published RNA-seq/microarray formula
 (Penn-Nicholson et al., 2020):
 `GM(GBP2, FCGR1B, SERPING1) − GM(TUBGCP6, TRMT2A, SDR39U1)`,
 with geometric means evaluated on the linear (TPM+1) scale from frozen IDC-reference
-QN-normalized log2(TPM+1) values. It is **not** the original qRT-PCR RISK6
-pair-ratio/lookup-table algorithm. The internal column name remains `RISK6`.
+QN-normalized log2(TPM+1) values (Penn-Nicholson et al., 2020 RNA-seq/microarray
+formula). The internal column name remains `RISK6`.

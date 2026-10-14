@@ -5,8 +5,8 @@
 - R >= 4.4.3 (analysis performed with R 4.4.3).
 - Package versions are recorded in `env/package_versions.tsv`; the full session listing is
   in `env/sessionInfo.txt`.
-- No absolute paths are used anywhere in `code/`. The repository root is resolved at run
-  time by `code/_paths.R` and can be overridden with the environment variable
+- Paths in `code/` are repository-relative. The repository root is resolved at run time
+  by `code/_paths.R` and can be overridden with the environment variable
   `TBCIRCRNA_ROOT`.
 
 ## Execution order
@@ -28,7 +28,7 @@ corresponding manuscript section.
 | 9 | Diagnostic performance | `code/09_diagnostic_performance.R` | `results/locked_TB_index_scores.tsv`; `config/locked_thresholds.tsv` | `results/diagnostic_performance.tsv` (AUROC, DeLong CI, AUPRC); `results/diagnostic_thresholds.tsv` (Sens, Spec, PPV, NPV, TP, FN, TN, FP at both locked thresholds) | Methods — Diagnostic performance; the independent-evaluation and diagnostic-performance analysis |
 | 10 | Demographic adjustment | `code/10_demographic_adjustment.R` | `results/locked_TB_index_scores.tsv`, `metadata/sample_dictionary.tsv` | `results/demographic_adjustment.tsv` | Methods — Age- and sex-adjusted analyses |
 | 11 | Longitudinal analysis | `code/11_longitudinal_analysis.R` | `results/locked_TB_index_scores.tsv` | `results/longitudinal_analysis.tsv` | Methods — Longitudinal analyses |
-| 12 | Benchmarking against Sweeney3 and RISK6 | `code/12a_benchmark_tbindex_data.R`, `code/12b_benchmark_tbindex_matrix.R`, `code/12c_benchmark_tbindex_scores.R`, `code/12d_benchmark_risk6_genes.R`, `code/12e_benchmark_literature_data.R`, `code/12f_benchmark_add_genes.R` (run in this order) | `data/benchmark/circ_qn_*.rds`, `data/benchmark/linear_qn_*.rds`, `data/benchmark/{cohort}_TBindex_per_sample.csv` | per-sample benchmark scores; the curated literature-comparison table | Methods — Benchmarking against published signatures (RISK6 = GM up-set − GM down-set; not original qRT-PCR RISK6) |
+| 12 | Benchmarking against Sweeney3 and RISK6 | `code/12a_benchmark_tbindex_data.R`, `code/12b_benchmark_tbindex_matrix.R`, `code/12c_benchmark_tbindex_scores.R`, `code/12d_benchmark_risk6_genes.R`, `code/12e_benchmark_literature_data.R`, `code/12f_benchmark_add_genes.R` (run in this order) | `data/benchmark/circ_qn_*.rds`, `data/benchmark/linear_qn_*.rds`, `data/benchmark/{cohort}_TBindex_per_sample.csv` | per-sample benchmark scores; the curated literature-comparison table | Methods — Benchmarking against published signatures (RISK6 = GM up-set − GM down-set; Penn-Nicholson et al., 2020 RNA-seq/microarray formula) |
 | 13 | Paired DeLong comparisons | `code/13_DeLong_comparisons.R` | `data/benchmark/benchmark_Sweeney3_RISK6_per_sample.csv` | `results/DeLong_comparisons.tsv` (16 comparisons) | Methods — Statistical analysis |
 | 14 | BSJ refinement | `code/14_BSJ_refinement.R` | `data/bsj/{IDC,ITC,PVC}_GOLPH3_SOD2_PCNX2_circular.tsv`; `data/metadata/{IDC,ITC,PVC}_metadata.tsv` | `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`, `results/BSJ_summary.tsv` | Methods — BSJ-level refinement |
 | 15 | Summary tables and final outputs | `code/15_generate_summary_tables.R` | `config/*.tsv`, `results/*.tsv` | `results/summary_consistency_check.tsv` | internal consistency check |
@@ -43,22 +43,19 @@ The pre-filter quantification is **LONG** — one row per host gene x library wi
 **WIDE**: features in rows, samples in columns, with the first column holding the gene
 symbol (`gene_name` / `Gene`).
 
-- Script **02** is the only place that reads the raw matrices. It performs the
-  cohort-specific detectability filter and the three-cohort intersection, and
-  writes one common-gene matrix per cohort.
-- Script **03** consumes those matrices and never re-reads the raw files, so the
-  wide format is assumed in exactly one place.
-- Scripts **04, 06 and 08** reorder every matrix explicitly onto the sample
-  order of the metadata after checking for duplicate, missing and extra sample
-  IDs; no implicit ordering is assumed.
+- Script **02** reads the pre-filter matrices, applies the cohort-specific
+  detectability filter and the three-cohort intersection, and writes one
+  common-gene matrix per cohort.
+- Script **03** consumes those common-gene matrices in wide format.
+- Scripts **04, 06 and 08** check for duplicate, missing and extra sample IDs,
+  then reorder every matrix onto the sample order of the metadata.
 - Script **14** enforces final cohort membership inside the script: it restricts each
   BSJ table to the `Sample_ID` list of the corresponding cohort metadata file and
-  reports the libraries it drops. Final cohort membership is therefore enforced from
-  `Sample_ID` rather than assumed from the input table.
+  reports the libraries it drops.
 
-## What can be re-run from this repository alone
+## Script inputs and re-run status
 
-| Script | Re-runnable from this repository? | Required external input |
+| Script | Re-runnable with shipped inputs? | Required external input |
 |--------|-----------------------------------|-------------------------|
 | `01_prepare_metadata.R` | Yes, with the de-identified cohort sample metadata saved as `data/metadata/*_metadata.tsv` | the de-identified cohort sample metadata |
 | `02_build_common_feature_matrix.R` | No | Pre-filter gene-level circRNA host-gene table per cohort (long format) |
@@ -85,9 +82,9 @@ Required input file not found.
   Where: NCBI GEO GSE348100
 ```
 
-## What is fixed rather than re-computed
+## Fixed outputs in `config/` and `results/`
 
-The reported numbers are frozen in `config/` and `results/`:
+The reported numbers are stored in `config/` and `results/`:
 
 - cohort sizes and library counts (`metadata/cohort_summary.tsv`, `metadata/sample_dictionary.tsv`);
 - common feature space, candidate count, panel size, bootstrap settings and locked
@@ -110,10 +107,9 @@ data.
 
 ## Interpretation notes
 
-- Bootstrap out-of-bag AUROC is a resampling summary and is **not** an independent
-  validation estimate.
+- Bootstrap out-of-bag AUROC is a resampling summary within the discovery cohort.
 - The PVC PTB-versus-LTBI and EPTB-versus-LTBI comparisons are cross-time-point
   (baseline cases versus post-conversion follow-up controls) and are reported as
   exploratory secondary analyses.
-- BH-adjusted *P* values are a secondary multiplicity sensitivity summary; they do not
-  redefine the prespecified discovery screen.
+- BH-adjusted *P* values are a secondary multiplicity sensitivity summary for the
+  prespecified discovery screen.

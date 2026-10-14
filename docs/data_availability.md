@@ -36,15 +36,13 @@ repository.
 | Public pediatric validation cohort (raw RNA-seq) | NCBI BioProject **PRJNA588242** | Publicly available |
 | In-house raw sequencing (IDC / ITC FASTQ) | — | Restricted; not publicly available |
 
-## What is deliberately not in this repository
+## Related materials held elsewhere
 
-- FASTQ / BAM / CRAM / SAM and any raw or intermediate alignment files.
-- In-house individual-level sequencing data. The original informed consent did not
-  authorize public release of individual-level sequencing data.
-- Full-scale expression matrices that are already deposited in GEO.
-- Clinical source records (participant names, medical-record numbers, contact details,
-  addresses or other direct identifiers). Only de-identified, published annotation is
-  provided.
+- Raw and intermediate alignment files (FASTQ / BAM / CRAM / SAM) remain outside this
+  repository; in-house individual-level sequencing data are restricted under the original
+  informed consent.
+- Full-scale expression matrices are obtained from NCBI GEO **GSE348100**.
+- This repository provides de-identified, published annotation only.
 
 ## Notes
 
@@ -53,5 +51,4 @@ repository.
   same group labels as the de-identified cohort sample metadata. No internal identifiers are used.
 - Sex and age are included because they are required by the age- and sex-adjusted
   sensitivity analyses and are already reported in the de-identified cohort sample metadata.
-- No GEO reviewer token is stored in this repository; tokens for peer review are provided
-  through the journal editorial system.
+- GEO reviewer tokens for peer review are provided through the journal editorial system.

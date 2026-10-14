@@ -6,8 +6,7 @@ This repository provides the code and documented inputs required to reproduce th
 principal downstream analyses reported in the accompanying manuscript for the
 circRNA-derived three-gene TB-index (SOD2, GOLPH3, PCNX2). Cohort-specific pre-filter
 matrices used to derive the common 2,754-gene feature space are documented separately in
-the data-availability information. It is intended for
-reproducing the analysis, not for restating the manuscript results.
+the data-availability information.
 
 ## Study cohorts
 
@@ -35,7 +34,7 @@ participants (public validation dataset, NCBI BioProject PRJNA588242).
 The prespecified discovery screen was |log2FC| > 0.5 **and** nominal *P* < 0.05 in all
 four APTB-centred comparisons, combined with four-way direction concordance.
 Benjamini–Hochberg-adjusted *P* values are reported as secondary multiplicity
-sensitivity information and do not redefine the screen.
+sensitivity information.
 
 ## Repository structure
 
@@ -52,8 +51,8 @@ sensitivity information and do not redefine the screen.
 
 ## Reproducibility
 
-Run from the repository root; every script sources `code/_paths.R`, which resolves the
-repository root without any absolute path.
+Run from the repository root; every script sources `code/_paths.R`, which resolves
+repository-relative paths.
 
 ```r
 # 01  de-identified sample dictionary and cohort summary

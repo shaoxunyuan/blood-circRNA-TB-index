@@ -20,7 +20,7 @@ second metadata input format is used anywhere in the repository.
   inputs of the same cohort (`data/qn/...` matrices, `data/bsj/...` tables); the scripts
   join on that string. When the deposited matrices use a different identifier set from
   the published sample dictionary, map the identifiers before splitting the dictionary
-  by cohort — do not edit the identifier inside a script.
+  by cohort before the scripts are run.
 
 **Main columns**
 

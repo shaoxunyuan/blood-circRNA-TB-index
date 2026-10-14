@@ -18,7 +18,7 @@ suppressPackageStartupMessages({
 })
 
 
-## Package-relative paths (do not hard-code absolute workstation paths)
+## Package-relative paths
 .args_file <- grep("^--file=", commandArgs(trailingOnly = FALSE), value = TRUE)
 .code_dir <- if (length(.args_file)) dirname(normalizePath(sub("^--file=", "", .args_file[1]))) else getwd()
 source(file.path(.code_dir, "_paths.R"))

@@ -19,8 +19,7 @@
 **Matrix orientation**
 
 Each matrix is stored with **one row per host gene**. The first column is `Gene`,
-followed by one column for each RNA-seq library. The `Gene` column is not a library and
-must not be counted as one:
+followed by one column for each RNA-seq library:
 
 | File | Dimensions |
 |------|------------|

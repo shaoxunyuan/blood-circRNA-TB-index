@@ -3,7 +3,7 @@
 #
 #   source("code/_paths.R")        # run from the repository root
 #
-# No absolute paths are used anywhere. The repository root is resolved as:
+# Paths are repository-relative. The repository root is resolved as:
 #   1. $TBCIRCRNA_ROOT, if set and valid (optional override);
 #   2. the working directory, when it looks like the repository root;
 #   3. otherwise the directory containing this script, walking upwards.

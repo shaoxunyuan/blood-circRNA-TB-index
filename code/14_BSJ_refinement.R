@@ -8,16 +8,14 @@
 #                 three panel genes. Required columns:
 #                 gene_name, BSJ_ID, BioSample, TPM.
 #                 BSJ_ID identifies the junction as
-#                 chromosome|donor|acceptor|strand (hg38), so a BSJ is matched
-#                 across cohorts by genomic coordinates and never by row index.
+#                 chromosome|donor|acceptor|strand (hg38); BSJs are matched
+#                 across cohorts by these genomic coordinates.
 #                 The BSJ input tables are restricted internally to the final
 #                 cohort sample identifiers: libraries present in a table but
-#                 not listed in the cohort metadata are reported and dropped.
+#                 absent from the cohort metadata are reported and dropped.
 #               data/metadata/{IDC,ITC,PVC}_metadata.tsv
-#                 Final per-library annotation; only Sample_ID is used, to
-#                 define final cohort membership (IDC 109 / ITC 35 / PVC 81
-#                 libraries). Membership is never inferred from time point,
-#                 baseline / follow-up status or treatment status.
+#                 Final per-library annotation; Sample_ID defines final cohort
+#                 membership (IDC 109 / ITC 35 / PVC 81 libraries).
 # Outputs:      results/BSJ_overlap_summary.tsv      per-gene cohort overlap counts
 #               results/BSJ_contribution_detail.tsv  per gene x cohort x BSJ detail
 #               results/BSJ_summary.tsv              per gene x cohort summary
@@ -71,8 +69,7 @@ read_bsj <- function(coh, final_ids) {
   d <- d[gene_name %in% GENES & !is.na(BSJ_ID) & BSJ_ID != ""]
   d[, BioSample := as.character(BioSample)]
 
-  ## Final cohort membership is enforced here from Sample_ID; the input table is
-  ## never trusted to be pre-restricted.
+  ## Final cohort membership is enforced here from Sample_ID.
   extra_ids   <- setdiff(unique(d$BioSample), final_ids)
   missing_ids <- setdiff(final_ids, unique(d$BioSample))
   if (length(missing_ids) == length(final_ids)) {

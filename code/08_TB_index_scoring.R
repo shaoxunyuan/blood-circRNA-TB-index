@@ -16,7 +16,7 @@ source("code/_paths.R")
 
 EXPECTED_LIBRARIES <- c(IDC = 109L, ITC = 35L, PVC = 81L)
 PANEL <- c("SOD2", "GOLPH3", "PCNX2")
-## Locked weights, applied explicitly by gene (never by column position).
+## Locked weights, applied explicitly by gene name.
 WEIGHTS <- c(SOD2 = 1, GOLPH3 = -1, PCNX2 = -1)
 
 panel <- paths_read_tsv(file.path(CONFIG, "locked_panel.tsv"))

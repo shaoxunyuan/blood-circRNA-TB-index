@@ -10,10 +10,8 @@
 #               test        pROC::roc.test, paired design (same participants)
 #               family      all 16 paired signature comparisons form a SINGLE
 #                           family; Benjamini-Hochberg is applied across those 16
-#               reporting   both the unadjusted and the BH-adjusted P value;
-#                           no significance stars are produced
-#               interpretation  secondary and exploratory benchmark analyses,
-#                           not a test of signature superiority
+#               reporting   unadjusted and BH-adjusted P values
+#               interpretation  secondary and exploratory benchmark analyses
 # Dependencies: R >= 4.4.3; data.table; pROC
 # ---------------------------------------------------------------------------
 suppressPackageStartupMessages({library(data.table); library(pROC)})

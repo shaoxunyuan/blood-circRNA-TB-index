@@ -28,7 +28,7 @@ IDC_GROUP_COLS <- GROUP_COLS[c("APTB", "HC", "LTBI", "PNEU", "LC")]
 ITC_GROUP_COLS <- GROUP_COLS[c("APTB", "HC", "LC")]
 PVC_GROUP_COLS <- GROUP_COLS[c("PTB", "EPTB", "HC")]
 
-# ---- 2. Cohort: line identity, not hue ----
+# ---- 2. Cohort: greyscale line identity ----
 COHORT_COLS <- c(
   IDC = "#2B2B2B",
   ITC = "#6E6E6E",
@@ -112,7 +112,7 @@ DIR_COLS <- c(
   Down = "#3C5488"
 )
 
-# ---- misc (functional / fallback; not clinical group hues) ----
+# ---- misc (functional / fallback greys) ----
 FUNC_COLS <- c("#4D4D4D", "#6E6E6E", "#A0A0A0", "#C8C8C8",
                unname(GROUP_COLS[c("APTB", "HC", "LTBI", "PNEU")]))
 

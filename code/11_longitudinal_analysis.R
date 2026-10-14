@@ -8,9 +8,8 @@
 #               paired test    two-sided Wilcoxon signed-rank on adjacent time
 #                              points (BL vs M1, M1 vs M6), PTB and EPTB separately
 #               AUROC          ordinary two-class ROC on paired samples
-#                              (case = BL); this is not a paired-ROC estimator and
-#                              the intervals do not account for within-participant
-#                              dependence
+#                              (case = BL); confidence intervals treat observations
+#                              as independent
 #               All longitudinal analyses are exploratory.
 # Dependencies: R >= 4.4.3; data.table; pROC
 # ---------------------------------------------------------------------------
