@@ -36,8 +36,8 @@ Each subdirectory has its own `README.md` stating:
 
 ## Contract for the scripts
 
-Every script resolves this directory through `code/_paths.R` and fails with an
-actionable message when a file is missing:
+Every script resolves this directory through `code/_paths.R` and stops with an
+explicit message when a file is missing:
 
 ```
 Required input file not found.

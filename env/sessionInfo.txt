@@ -1,7 +1,3 @@
-Session information captured for the blood-circRNA-TB-index reproducibility repository
-Captured on: 2026-10-04 18:16:33 CST 
-R executable:<R_HOME>/lib/R/bin/R
-
 R version 4.4.3 (2025-02-28)
 Platform: x86_64-conda-linux-gnu
 Running under: CentOS Linux 7 (Core)

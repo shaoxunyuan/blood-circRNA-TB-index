@@ -3,9 +3,8 @@
 ## Environment
 
 - R >= 4.4.3 (analysis performed with R 4.4.3).
-- Package versions as actually used are recorded in `env/package_versions.tsv`, with the
-  full `env/sessionInfo.txt` captured from the analysis environment. Versions were
-  extracted from the real environment; none were entered by hand.
+- Package versions are recorded in `env/package_versions.tsv`; the full session listing is
+  in `env/sessionInfo.txt`.
 - No absolute paths are used anywhere in `code/`. The repository root is resolved at run
   time by `code/_paths.R` and can be overridden with the environment variable
   `TBCIRCRNA_ROOT`.
@@ -104,12 +103,10 @@ The reported numbers are frozen in `config/` and `results/`:
   `results/BSJ_overlap_summary.tsv`, `results/BSJ_contribution_detail.tsv`), all produced
   by `code/14_BSJ_refinement.R` and checked against the BSJ contribution summaries inside the script.
 
-Selected analysis steps were re-run for reproducibility verification using the
-documented processed inputs; the shipped result tables correspond to the final reported
-results. Not every upstream data-processing step is rerun automatically from raw
-sequencing data, because raw sequencing data from the in-house cohorts are not publicly
-available: the original informed consent did not authorize public release of
-individual-level sequencing data.
+Not every upstream data-processing step is rerun automatically from raw sequencing data,
+because raw sequencing data from the in-house cohorts are not publicly available: the
+original informed consent did not authorize public release of individual-level sequencing
+data.
 
 ## Interpretation notes
 

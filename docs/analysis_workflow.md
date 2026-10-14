@@ -1,8 +1,7 @@
 # Analysis workflow
 
 Fifteen analysis steps matching the manuscript Methods. Scripts are numbered in
-execution order; every script sources `code/_paths.R`, and all filenames below are the
-ones the scripts actually use.
+execution order; every script sources `code/_paths.R`.
 
 ---
 

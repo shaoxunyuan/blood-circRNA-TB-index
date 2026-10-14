@@ -9,4 +9,4 @@ openxlsx	4.2.8.1	Workbook output
 readxl	1.4.5	Workbook input
 plotROC	2.3.3	ROC curve plotting
 survival	3.8.6	Survival utilities
-logistf	1.26.1	Firth bias-reduced logistic regression (installed; the manuscript describes a direct implementation without an external package)
+logistf	1.26.1	Firth bias-reduced logistic regression

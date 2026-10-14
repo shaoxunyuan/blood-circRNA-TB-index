@@ -31,7 +31,7 @@
 Each pre-filter table must contain all libraries required for the final cohort analysis.
 Libraries present in the pre-filter table but absent from the final metadata are excluded
 explicitly by sample ID and reported by the processing script; a metadata library missing
-from the table stops the run with an actionable message. The final cohort sizes are
+from the table stops the run with an explicit message. The final cohort sizes are
 IDC 109, ITC 35 and PVC 81 libraries.
 
 **Read by**

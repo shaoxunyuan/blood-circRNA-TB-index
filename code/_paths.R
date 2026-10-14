@@ -13,7 +13,7 @@
 #   data/       INPUT placeholders — download the deposited matrices here
 #   metadata/   de-identified sample dictionary and cohort summary
 #   results/    lightweight derived results (fixed, match the manuscript)
-#   env/        R and package versions captured from the analysis environment
+#   env/        R and package versions
 #   docs/       workflow, data availability, reproducibility
 #   output/     default write directory for re-runs
 # =============================================================================
@@ -68,7 +68,7 @@ OUT     <- file.path(ROOT, "output")
 
 dir.create(OUT, showWarnings = FALSE, recursive = TRUE)
 
-# Locate a required analysis input and fail with an actionable message.
+# Locate a required analysis input and stop if it is missing.
 # `what` is a short description; `where` is the GEO / public source of the file.
 paths_require <- function(path, what, where) {
   if (file.exists(path)) return(invisible(normalizePath(path, winslash = "/")))

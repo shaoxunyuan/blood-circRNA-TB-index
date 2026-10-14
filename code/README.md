@@ -15,7 +15,7 @@ Dependencies: R version and packages
 
 | Script | Step | Role |
 |--------|------|------|
-| `_paths.R` | — | Resolves repository-relative paths (`ROOT`, `CONFIG`, `DATA*`, `RESULTS`, …) and provides `paths_require()` for actionable "input not found" errors. Sourced by every script. No absolute paths. |
+| `_paths.R` | — | Resolves repository-relative paths (`ROOT`, `CONFIG`, `DATA*`, `RESULTS`, …) and provides `paths_require()` for missing-input errors. Sourced by every script. No absolute paths. |
 | `palette_manuscript.R` | — | Single source of truth for the locked final colours and shapes (group / cohort / feature / marker / direction). |
 | `01_prepare_metadata.R` | 1 | De-identified sample dictionary and cohort/group summary |
 | `02_build_common_feature_matrix.R` | 2 | Common feature space (2,754 circRNA host genes) |
@@ -59,9 +59,3 @@ Required input file not found.
   What : IDC QN log2(TPM+1) host-gene matrix
   Where: NCBI GEO GSE348100
 ```
-
-## Notes
-
-Content inside some scripts retains the wording of the original working tree. The
-authoritative parameters are those in `config/`; the authoritative numbers are those in
-`results/`.
